@@ -1,4 +1,10 @@
-@import-normalize;
+@import "~sanitize.css";
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap');
+@import "vars";
+
+* {
+  font-family: 'Raleway', sans-serif;
+}
 
 body {
   margin: 0;
@@ -7,6 +13,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #000;
 }
 
 code {

@@ -1,0 +1,28 @@
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  width: 351px;
+  border: 1px solid #F0F4FB;
+  padding: 28px 24px 0 16px;
+  box-sizing: border-box
+}
+
+.container{
+  height: 175px;
+  border: 1px solid black;
+  margin-top: 20px;
+}
+
+.more_details__wrapper{
+  
+}
+
+.promo{
+  height: 143px;
+  margin-bottom: 33px;
+  background: #FFFFFF;
+  border: 1px solid #FF2D87;
+  border-radius: 20px;
+  padding-left: 97px;
+  padding-top: 20px;
+}
