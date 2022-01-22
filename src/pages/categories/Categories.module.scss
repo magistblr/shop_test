@@ -1,3 +1,35 @@
 .wrapper{
   
 }
+
+.categories__title_settings{
+  display: flex;
+  margin: 0;
+  .categories__title{
+    display: flex;
+    margin: 0;
+    font-weight: 700;
+    font-style: 20px;
+    color: #2D2D2F;
+    line-height: 23px;
+  }
+  .categories__settings{
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 127.7%;
+    color: #2967FF;
+    margin-left: 107px;
+    display: flex;
+    text-decoration:none;
+  }
+}
+
+
+.categories__tags{
+  display: flex;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  :last-child{
+    margin-right: 0px;
+  }
+}

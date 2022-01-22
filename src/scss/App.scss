@@ -6,9 +6,11 @@
 .main__wrapper {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  overflow: hidden;
 }
 
 .header__pages__wrapper {
-  
+  padding: 0 50px 0 50px;
 }
 

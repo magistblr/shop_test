@@ -9,9 +9,9 @@ export const Header = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.wrapper__inner}>
-        <div className={s.title}>
-          React
-        </div>
+        <h1>
+        React
+        </h1>
         <div className={s.geo}>
           <div className={s.geo__icon}>
             <img src={geoIcon} alt="geo" />
@@ -24,11 +24,13 @@ export const Header = () => {
           <input className={s.input} type="text" placeholder='Поиск бренда, товара, категории...'/>
           <div className={s.search__button}> <img src={searchIcon} alt="search" /> </div>
         </div>
-        <div className={s.basket}>
-          <img src={basket} alt="basket" />
-          <div className={s.counter}>10+</div>
+        <div className={s.basket_ava__wrapper}>
+          <div className={s.basket}>
+            <img src={basket} alt="basket" />
+            <div className={s.counter}>10+</div>
+          </div>
+            <img className={s.ava} src={ava} alt="ava" />
         </div>
-          <img className={s.ava} src={ava} alt="ava" />
       </div>
     </div>
   );

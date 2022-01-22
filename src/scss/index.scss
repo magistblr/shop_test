@@ -4,6 +4,7 @@
 
 * {
   font-family: 'Raleway', sans-serif;
+  margin: 0
 }
 
 body {
@@ -19,4 +20,12 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h1{
+  width: 103px;
+  font-weight: 700;
+  font-size: 37px;
+  line-height: 43px;
+  color: #2D2D2F;
 }
