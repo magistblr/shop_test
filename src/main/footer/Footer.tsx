@@ -14,14 +14,18 @@ export const Footer = () => {
         <div className={s.contacts_apps}>
           <div className={s.contacts}>
             <p className={s.contacts_apps_text}>Присоединяйтесь к нам</p>
-            <a className={s.contacts_img} href="#"><img src={facebook} alt="facebook" /></a>
-            <a className={s.contacts_img} href="#"><img src={vk} alt="vk" /></a>
-            <a className={s.contacts_img} href="#"><img src={inst} alt="inst" /></a>
+            <div className={s.img_container}>
+              <a className={s.contacts_img} href="#"><img src={facebook} alt="facebook" /></a>
+              <a className={s.contacts_img} href="#"><img src={vk} alt="vk" /></a>
+              <a className={s.contacts_img} href="#"><img src={inst} alt="inst" /></a>
+            </div>
           </div>
           <div className={s.apps}>
             <p className={s.contacts_apps_text}>Устанавливайте приложение</p>
-            <a href="#"><img className={s.apps_img} src={googlePlay} alt="googlePlay" /></a>
-            <a href="#"><img className={s.apps_img} src={appStore} alt="appStore" /></a>
+            <div className={s.img_container}>
+              <a href="#"><img className={s.apps_img} src={googlePlay} alt="googlePlay" /></a>
+              <a href="#"><img className={s.apps_img} src={appStore} alt="appStore" /></a>
+            </div>
           </div>
         </div>
       </div>

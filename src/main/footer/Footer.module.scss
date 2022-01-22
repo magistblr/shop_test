@@ -17,12 +17,19 @@
   display: flex;
   justify-content: space-between;
   min-width: 445px;
+  height: 60px;
   .contacts_img {
     margin-right: 16px;
   }
   .contacts_img:last-child{
     margin-right: 0;
   }
+}
+
+.apps, .contacts{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .apps{

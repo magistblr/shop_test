@@ -3,6 +3,7 @@
   min-height: 283px;
   position: relative;
   overflow: hidden;
+  margin-right: 20px;
 }
 
 .card__img{
@@ -12,7 +13,7 @@
 
 .card__tags{
   position: absolute;
-  max-height: 24px;
+  height: 24px;
   top: 100px;
   left: 11px;
 }

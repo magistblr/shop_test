@@ -29,7 +29,16 @@
   display: flex;
   margin-top: 20px;
   flex-wrap: wrap;
+  align-items: center;
   :last-child{
     margin-right: 0px;
+  }
+}
+
+.categories__content{
+  display: flex;
+  flex-wrap: wrap;
+  :last-child{
+    margin-right: 0;
   }
 }

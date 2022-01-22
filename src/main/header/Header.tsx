@@ -8,7 +8,7 @@ import ava from '../../assets/img/ava.png';
 export const Header = () => {
   return (
     <div className={s.wrapper}>
-      <div className={s.wrapper__inner}>
+      <header className={s.wrapper__inner}>
         <h1>
         React
         </h1>
@@ -31,7 +31,7 @@ export const Header = () => {
           </div>
             <img className={s.ava} src={ava} alt="ava" />
         </div>
-      </div>
+      </header>
     </div>
   );
 }

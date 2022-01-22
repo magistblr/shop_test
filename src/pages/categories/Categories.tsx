@@ -16,6 +16,9 @@ export const Categories = () => {
       </div>
       <div className={s.categories__content}>
         <Card></Card>
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
       </div>
     </div>
   );
