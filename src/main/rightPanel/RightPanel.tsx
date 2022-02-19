@@ -7,7 +7,7 @@ import bg2 from '../../assets/img/Image2.png';
 
 export const RightPanel = () => {
   return (
-    <div className={s.wrapper}>
+    <aside className={s.wrapper}>
       <div className={s.promo}>
         <img className={s.promo__icon} src={promo} alt="promo" />
         <div className={s.more_details__wrapper}>
@@ -29,6 +29,6 @@ export const RightPanel = () => {
         <img src={bg1} alt="" />
         <div className={s.text}>Новая коллекция</div>
       </div>
-    </div>
+    </aside>
   );
 }

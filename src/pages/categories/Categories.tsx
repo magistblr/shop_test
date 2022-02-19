@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../../components/button/Button';
 import { Card } from '../../components/card/Card';
 import { Tag } from '../../components/tags/Tag';
 import { Tags } from '../../components/tags/Tags';
@@ -20,6 +21,7 @@ export const Categories = () => {
         <Card></Card>
         <Card></Card>
       </div>
+      <Button type="success" text>Показать больше товаров</Button>
     </div>
   );
 }

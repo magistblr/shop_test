@@ -20,11 +20,13 @@
   background-color: rgba(236, 42, 42, 0.8);
 }
 .success  {
-  background-color: rgb(52, 182, 0);
-  border: 1px solid rgb(52, 182, 0)
+  background-color: #F0F4FB;
+  border: 1px solid #F0F4FB;
+  height: 48px !important;
+  padding: 0 45px;
 }
 .success:hover {
-  background-color: rgba(52, 182, 0, 0.8);
+  background-color: rgba(203, 208, 216, 0.8);
 }
 .warning  {
   background-color: rgb(190, 190, 2);
@@ -48,6 +50,7 @@
   color: white;
   font-weight: 600;
   font-size: 16px;
+  box-sizing: content-box;
   &:hover{
     transition: 0.2s;
   }
@@ -125,15 +128,15 @@
 }
 
 .success.btn_outlined, .success.btn_text{
-  color: rgb(52, 182, 0);
+  color: #727280;
   .btn__spinner{
     & .path {
-      stroke: rgb(52, 182, 0);
+      stroke: #727280;
     }
   }
 }
 .success.btn_outlined:hover, .success.btn_text:hover {
-  background-color: rgba(52, 182, 0, 0.1);
+  background-color: rgba(122, 122, 121, 0.1);
 }
 
 .warning.btn_outlined, .warning.btn_text{
