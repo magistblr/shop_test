@@ -9,7 +9,7 @@ export const Categories = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.categories__title_settings}>
-        <p className={s.categories__title}>Категории товаров</p>
+        <h3 className={s.categories__title}>Категории товаров</h3>
         <a className={s.categories__settings} href="#">Настройки</a>
       </div>
       <div className={s.categories__tags}>
