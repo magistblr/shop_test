@@ -60,6 +60,10 @@
   .cart_cards_wrapper{
     padding: 40px 78px 40px 58px;
     .cart_cards {
+      [data-cartCardItem]:last-child{
+        border: none;
+        margin-bottom: 0;
+      }
     }
   }
 }

@@ -26,6 +26,9 @@ export const Cart = () => {
         <div className={s.cart_cards_wrapper}>
           <div className={s.cart_cards}>
             <CartCard></CartCard>
+            <CartCard></CartCard>
+            <CartCard></CartCard>
+            <CartCard></CartCard>
           </div>
         </div>
       </div>

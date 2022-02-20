@@ -11,7 +11,7 @@ export const CartCard: React.FC<CartCardType> = ({}) => {
 
 
   return (
-    <div className={s.wrapper}>
+    <div className={s.wrapper} data-cartCardItem>
       <img className={s.card_img} src={cartCardImg} alt="cartCard" />
       <div className={s.card_title_wrapper}>
         <div className={s.card_title}>Смартфон Xiaomi Redmi Note 8 Pro 6/128GB, белый</div>
@@ -27,9 +27,13 @@ export const CartCard: React.FC<CartCardType> = ({}) => {
         </div>
       </div>
       <div className={s.counter}>
-        <span className={s.counter_minus}>-</span>
-        <span className={s.counter_total}>25</span>
-        <div className={s.counter_plus}>+</div>
+        <div className={s.counter_minus_wrapper}>
+          <div className={s.counter_minus}></div>
+        </div>
+        <div className={s.counter_total}>25</div>
+        <div className={s.counter_plus_wrapper}>
+          <div className={s.counter_plus}></div>
+        </div>
       </div>
       <div className={s.card_price_wrapper}>
         <p className={s.price}>от 350 000 ₽</p>
