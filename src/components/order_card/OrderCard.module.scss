@@ -12,6 +12,7 @@
 .header{
   display: flex;
   justify-content: space-between;
+  font-weight: 600;
   .order_wrapper{
     display: flex;
     min-width: 210px;
@@ -19,11 +20,47 @@
       border-radius: 100%;
     }
     .order_name_wrapper{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3px 0;
+      color: #727280;
       margin-left: 10px;
     }
     .order_more{
+      display: flex;
+      align-items: flex-end;
+      font-size: 12px;
+      line-height: 127.7%;
       color: #2967FF;
+      margin-left: 10px;
+      padding-bottom: 3px;
     }
+  }
+  .order_hidden{
+    cursor: pointer;
+  }
+}
+
+.content{
+  margin-top: 10px;
+  .content_status{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 190px;
+    .status_wrapper{
+      position: relative;
+      .status_pack_img{
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+      }
+    }
+  }
+  .content_total{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
   }
 }
 
@@ -55,7 +92,9 @@
   font-size: 12px;
   line-height: 122%;
   .item_descr{
-    color: #2D2D2F;
+    font-weight: 600;
+    margin-top: 3px;
+    color: #2D2D2F
   }
   [data-text-color='2']{
     color: #2967FF;

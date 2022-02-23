@@ -26,10 +26,12 @@ export const OrderCard: React.FC<OrderCardType> = ({}) => {
       <div className={s.content}>
         <div className={s.content_status}>
           <OrderItem title='Статус заказа' description='Оплачен/Завершён'/>
-          <OrderItem title='Номер заказа' decorator='2' description='#664-333'/>
-          <div className={s.status_pack_img}>
-            <div className={s.status_card1}></div>
-            <div className={s.status_card2}></div>
+          <div className={s.status_wrapper}>
+            <OrderItem title='Номер заказа' decorator='2' description='#664-333'/>
+            <div className={s.status_pack_img}>
+              <div className={s.status_card1}></div>
+              <div className={s.status_card2}></div>
+            </div>
           </div>
         </div>
         <div className={s.content_total}>

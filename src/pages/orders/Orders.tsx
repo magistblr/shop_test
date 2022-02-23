@@ -6,7 +6,10 @@ export const Orders = () => {
   return (
     <div className={s.wrapper}>
       <h3>История заказов</h3>
-      <OrderCard/>
+      <div className={s.orders_wrapper}>
+        <OrderCard/>
+        <OrderCard/>
+      </div>
     </div>
   );
 }
