@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { categoriesAPI } from '../../api/categoriesAPI';
 import { Button } from '../../components/button/Button';
 import { Card } from '../../components/card/Card';
 import { Tag } from '../../components/tags/Tag';
@@ -6,6 +7,14 @@ import { Tags } from '../../components/tags/Tags';
 import s from './Categories.module.scss';
 
 export const Categories = () => {
+
+  useEffect(() => {
+    categoriesAPI.getCategories()
+    .then(res => console.log(res))
+    .catch(rej => console.log(rej))
+  }, [])
+
+
   return (
     <div className={s.wrapper}>
       <div className={s.categories__title_settings}>

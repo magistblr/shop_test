@@ -10,7 +10,9 @@ export const Footer = () => {
   return (
     <footer className={s.wrapper}>
       <div className={s.footer_up}>
-        <h1>React</h1>
+        <a href="#">
+          <h1>React</h1>
+        </a>
         <div className={s.contacts_apps}>
           <div className={s.contacts}>
             <p className={s.contacts_apps_text}>Присоединяйтесь к нам</p>
