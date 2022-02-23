@@ -1,0 +1,187 @@
+.button{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+
+.primary {
+  background-color: #2967FF;
+  border: 1px solid #2967FF
+}
+.primary:hover {
+  background-color: rgba(41, 103, 255, 0.8);
+}
+.danger {
+  background-color: rgb(236, 42, 42);
+  border: 1px solid rgb(236, 42, 42)
+}
+.danger:hover {
+  background-color: rgba(236, 42, 42, 0.8);
+}
+.success  {
+  background-color: #F0F4FB;
+  border: 1px solid #F0F4FB;
+  height: 48px !important;
+  padding: 0 45px;
+}
+.success:hover {
+  background-color: rgba(203, 208, 216, 0.8);
+}
+.warning  {
+  background-color: rgb(190, 190, 2);
+  border: 1px solid rgb(190, 190, 2)
+}
+.warning:hover {
+  background-color: rgba(190, 190, 2, 0.8);
+}
+
+
+
+.btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  min-width: 194px;
+  cursor: pointer;
+  border-radius: 51px;
+  transition: 0.2s;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  box-sizing: content-box;
+  &:hover{
+    transition: 0.2s;
+  }
+  &[disabled]{
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.0);
+    color: rgba(0, 0, 0, 0.5);
+    cursor: auto;
+    opacity: 1;
+  }
+}
+
+.btn__content{
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.btn__content-icon{
+  margin: 0 5px;
+  height: 80%;
+}
+
+
+.btn_min{
+  font-size: 0.8rem;
+  height: 28px;
+  min-width: 35px;
+}
+.btn_large{
+  font-size: 1.1rem;
+  height: 50px;
+  min-width: 110px;
+}
+.btn_block{
+  width: 100%;
+}
+.btn_outlined {
+  background-color:transparent;
+  font-size: 14px;
+  line-height: 140%;
+  font-weight: 400;
+}
+.btn_text {
+  border-color: rgba(0,0,0,.12);
+  background-color:transparent;
+}
+
+
+
+
+
+.primary.btn_outlined, .primary.btn_text{
+  color: #2967FF;
+  .btn__spinner{
+    & .path {
+      stroke: #2967FF;
+    }
+  }
+}
+.primary.btn_outlined:hover, .primary.btn_text:hover {
+  background-color: rgba(41, 103, 255, 0.1);
+}
+
+.danger.btn_outlined, .danger.btn_text{
+  color: rgb(236, 42, 42);
+  .btn__spinner{
+    & .path {
+      stroke: rgb(236, 42, 42);
+    }
+  }
+}
+.danger.btn_outlined:hover, .danger.btn_text:hover {
+  background-color: rgba(236, 42, 42, 0.1);
+}
+
+.success.btn_outlined, .success.btn_text{
+  color: #727280;
+  .btn__spinner{
+    & .path {
+      stroke: #727280;
+    }
+  }
+}
+.success.btn_outlined:hover, .success.btn_text:hover {
+  background-color: rgba(122, 122, 121, 0.1);
+}
+
+.warning.btn_outlined, .warning.btn_text{
+  color: rgb(190, 190, 2);
+  .btn__spinner{
+    & .path {
+      stroke: rgb(190, 190, 2);
+    }
+  }
+}
+.warning.btn_outlined:hover, .warning.btn_text:hover {
+  background-color: rgba(190, 190, 2, 0.1);
+}
+
+
+
+
+
+.btn__spinner {
+  height: 100%;
+  animation: rotate 2s linear infinite;
+  & .path {
+    stroke: rgb(255, 255, 255);
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}

@@ -1,0 +1,44 @@
+$white: #fff;
+$lightGray: #eee;
+$gray: #808080;
+$darkGray: #444;
+$black: #000;
+$red: #ff0000;
+$redTransparent3: rgba(255, 0, 0, 0.349);
+$palePurple: #d7d8ef;
+$blue: #21268f;
+$blueDark: #2d2e46;
+$blueDarkTransparent2: rgba(36, 37, 74, 0.2);
+$deepBlueTransparent5: rgba(45, 46, 70, 0.5);
+
+
+//backgrounds
+$mainBg: $white;
+$secondBg: $blue;
+$thirdBg: $palePurple;
+$mutedBg: $blueDarkTransparent2;
+$dangerBg: $red;
+$disabledBg: $lightGray;
+$disabledSecondBg: $gray;
+
+
+//text
+$mainColor: $blueDark;
+$secondColor: $black;
+$thirdColor: $white;
+$mutedColor: $deepBlueTransparent5;
+$secondColor: $blue;
+$dangerColor: $red;
+$disabledColor: $darkGray;
+
+//border
+$borderColor: $blueDarkTransparent2;
+$borderSecondColor: $blue;
+$borderThirdColor: $palePurple;
+$borderFourthColor: $white;
+$borderDangerColor: $red;
+$disabledBorder: $disabledBg;
+
+//shadow
+$shadow: 0px 4px 18px rgba(33,38,143,.35), inset 0px 1px 0px rgba(255,255,255,.3);
+$shadow2: 0 7px 14px rgb(33,38,143,.1), 0 3px 6px rgb(0,0,0,.08);

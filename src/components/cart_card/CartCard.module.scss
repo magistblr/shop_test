@@ -1,0 +1,153 @@
+.wrapper{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #AEC2EA;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  .card_img{
+    width: 57px;
+    height: 57px;
+  }
+  .card_title_wrapper{
+    .card_title{
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 140%;
+    }
+    .card_promotion{
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      .card_promotion_sold{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 3.5px 13px;
+        height: 22px;
+        color: #2967FF;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 122%;
+        border: 1px solid #2967FF;
+        border-radius: 0px 100px 100px 40px;
+        margin-right: 10px;
+      }
+      .card_promotion_sold_time{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 22px;
+        color: #FF2D87;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 122%;
+        border: 1px solid #FF2D87;
+        border-radius: 0px 100px 100px 40px;
+        border-left: none;
+        padding-right: 13px;
+      }
+      .card_promotion_sold_all{
+        display: flex;
+        font-size: 14px;
+        line-height: 140%;
+        .sold_all_text{
+          margin-left: 10px;
+        }
+        .sold_all{
+          margin-left: 5px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .counter{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #AEC2EA;
+    border-radius: 35px;
+    height: 44px;
+    box-sizing: border-box;
+    transition: 0.3s;
+  }
+  .counter_minus_wrapper, .counter_plus_wrapper{
+    width: 45px;
+    margin: -1px;
+    cursor: pointer;
+  }
+  .counter_minus_wrapper{
+    border-bottom-left-radius: 35px;
+    border-top-left-radius: 35px;
+  }
+  .counter_plus_wrapper{
+    border-bottom-right-radius: 35px;
+    border-top-right-radius: 35px;
+  }
+  .counter_plus_wrapper:hover, .counter_minus_wrapper:hover{
+    background-color: #89a9e0;
+    transition: 0.3s;
+  }
+  .counter_minus, .counter_plus{
+    position: relative;
+    height: 20px;
+    width: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .counter_minus::before{
+    content: "";
+    position: absolute;
+    background-color: #AEC2EA;
+    width: 10px;
+    height: 1px;
+    top: 50%;
+    right: 50%;
+    transform: translateX(50%);
+  }
+  .counter_plus::before{
+    content: "";
+    position: absolute;
+    background-color: #AEC2EA;
+    width: 10px;
+    height: 1px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .counter_plus::after{
+    content: "";
+    position: absolute;
+    background-color: #AEC2EA;
+    width: 1px;
+    height: 10px;
+    top: 53%;
+    left: 48%;
+    transform: translateY(-50%);
+  }
+  .counter_total{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 15px;
+  }
+  .card_price_wrapper{
+    .price{
+      color: #2D2D2F;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 140%;
+    }
+    .old_price{
+      color: #8D8D8E;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 122%;
+      text-decoration: line-through;
+    }
+  }
+  .card_delete{
+    .card_delete_img{
+      cursor: pointer;
+    }
+  }
+}
