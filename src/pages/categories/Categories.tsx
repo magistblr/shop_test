@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { categoriesAPI } from '../../api/categoriesAPI';
 import { Button } from '../../components/button/Button';
 import { Card } from '../../components/card/Card';
-import { Tag } from '../../components/tags/Tag';
 import { Tags } from '../../components/tags/Tags';
 import s from './Categories.module.scss';
 

@@ -8,6 +8,7 @@ export const Tags = () => {
 
   return (
     <div className='wrapper_tags'>
+        
         <Tag type="blue">Игрушка</Tag>
         <Tag type="green">Мартышка</Tag>
         <Tag type="yellow">Мишка</Tag>
