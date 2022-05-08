@@ -44,13 +44,6 @@
     "@typescript-eslint/no-unused-vars": [
       "error"
     ],
-    "@typescript-eslint/no-magic-numbers": [
-      "error",
-      {
-        "ignoreEnums": true,
-        "ignoreNumericLiteralTypes": true
-      }
-    ],
     "@typescript-eslint/no-use-before-define": [
       "error"
     ],
