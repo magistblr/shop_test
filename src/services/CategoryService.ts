@@ -15,7 +15,7 @@ export const categoryAPI = createApi({
       query: (data: any) => ({
         url: '/Categories',
         params: {
-          sort: `[${data.name}, "ASC"]`,
+          sort: `[${data.sort}, "ASC"]`,
           range: `[${data.min}, ${data.max}]`,
         },
       }),
