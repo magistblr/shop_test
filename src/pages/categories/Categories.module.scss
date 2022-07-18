@@ -5,6 +5,7 @@
 .categories__title_settings{
   display: flex;
   margin: 0;
+  position: relative;
   .categories__title{
     display: flex;
     margin: 0;
@@ -21,6 +22,9 @@
     margin-left: 107px;
     display: flex;
     text-decoration:none;
+    background-color: inherit;
+    border: inherit;
+    cursor: pointer;
   }
 }
 
