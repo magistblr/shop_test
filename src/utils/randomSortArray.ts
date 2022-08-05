@@ -12,5 +12,6 @@ export const randomSortArray = (array: string[]): string => {
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
+  //return first random item of array
   return array[0];
 };

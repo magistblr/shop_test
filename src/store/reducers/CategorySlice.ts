@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ICategory } from 'models/ICategory';
 
 interface CategoryState {
-  categories: ICategory[];
+  categories: ICategory[] | undefined;
   isLoading: boolean;
   error: string;
 }

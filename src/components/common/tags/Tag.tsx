@@ -1,11 +1,11 @@
 import React from 'react';
+import { COLOR_BUTTON } from 'utils/constans';
+import { randomSortArray } from 'utils/randomSortArray';
 
 import './Tag.scss';
-import { TagType } from './types';
 
-export const Tag: React.FC<TagType> = ({ children, type }) => {
-  console.log(type);
-
+export const Tag: React.FC = ({ children }) => {
+  const type = randomSortArray(COLOR_BUTTON)
   return (
     <div className="wrapper">
       <div className={`common ${type}`}>{children}</div>
