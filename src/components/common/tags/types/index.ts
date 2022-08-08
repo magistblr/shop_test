@@ -1,3 +1,5 @@
 export type TagType = {
-  type: 'green' | 'blue' | 'yellow' | 'pink' | 'outlined';
+  active?: boolean
+  id: number
+  type?: 'green' | 'blue' | 'yellow' | 'pink' | 'outlined';
 };

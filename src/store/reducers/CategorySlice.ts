@@ -10,7 +10,7 @@ interface CategoryState {
   minRange: number,
   maxRange: number,
   sort: boolean,
-  checked: boolean,
+  checkedGlobal: boolean,
 }
 
 const initialState: CategoryState = {
@@ -20,7 +20,7 @@ const initialState: CategoryState = {
   minRange: 0,
   maxRange: 24,
   sort: false,
-  checked: false,
+  checkedGlobal: false,
 };
 
 export const categorySlice = createSlice({
@@ -47,6 +47,9 @@ export const categorySlice = createSlice({
     },
     categoriesSort(state, action: PayloadAction<boolean>) {
       state.sort = action.payload;
+    },
+    categoriesChecked(state, action: PayloadAction<boolean>) {
+      state.checkedGlobal = action.payload;
     },
   },
 });

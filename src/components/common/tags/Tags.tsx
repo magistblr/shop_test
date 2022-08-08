@@ -30,7 +30,8 @@ export const Tags: React.FC = () => {
     <div className="wrapper_tags">
       {categories &&
         categories.map(category => (
-          <Tag key={category.id}>
+          <Tag  key={category.id}
+                id={category.id}>
             {category.name}
           </Tag>
         ))}

@@ -17,7 +17,7 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
 
   const minRange = useAppSelector(state => state.categoryReducer.minRange);
   const maxRange = useAppSelector(state => state.categoryReducer.maxRange);
-  const maxRange = useAppSelector(state => state.categoryReducer.maxRange);
+  const checkedGlobal = useAppSelector(state => state.categoryReducer.checkedGlobal);
 
   const dispatch = useAppDispatch();
 
@@ -30,6 +30,7 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
     dispatch(categorySlice.actions.categoriesMax(rangeMax))
     dispatch(categorySlice.actions.categoriesMin(rangeMin))
     dispatch(categorySlice.actions.categoriesSort(checked))
+    dispatch(categorySlice.actions.categoriesChecked(checked))
   }
 
 
@@ -37,20 +38,20 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
     <div className={s.wrapper}>
       <div className={s.checkbox}>
         <span>Сортировать по алфавиту</span>
-        <Checkbox  checked={checked} onChangeChecked={onChange}/>
+          <Checkbox onChangeChecked={onChange}/>
       </div>
       <div>
         <div>
         <MultiRangeSlider
-          min={minRange}
-          max={maxRange}
+          
+          min={0}
+          max={24}
           onChange={({ min, max }: { min: number; max: number }) =>{
             setRangeMin(min)
-            setRangeMax(max)
+            setRangeMax(--max)
           }
           }
         />
-
         </div>
       </div>
       <button className={s.button} type="button" onClick={() => btnClose()}>
