@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
+import { Settings } from '../settings';
 
 import s from './Popup.module.scss';
 import { PopupType } from './types';
@@ -21,14 +22,7 @@ export const Popup: React.FC<PopupType> = ({ setOpenPopup }) => {
 
   return (
     <div className={s.wrapper} ref={sortRef}>
-      <div>
-        Сортировать по алфавиту
-        <input type="checkbox" />
-      </div>
-      Выберите категории
-      <button type="button" onClick={() => setOpenPopup(false)}>
-        Применить
-      </button>
+      <Settings setOpenPopup={setOpenPopup}/>
     </div>
   );
 };

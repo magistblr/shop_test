@@ -6,22 +6,25 @@ import './Tags.scss';
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
 import { categoryAPI } from 'services/CategoryService';
 import { categorySlice } from 'store/reducers/CategorySlice';
-import { randomSortArray } from 'utils/randomSortArray';
-import { COLOR_BUTTON } from 'utils/constans';
 
 
 export const Tags: React.FC = () => {
   const categories = useAppSelector(state => state.categoryReducer.categories);
+  const minRange = useAppSelector(state => state.categoryReducer.minRange);
+  const maxRange = useAppSelector(state => state.categoryReducer.maxRange);
+  const sort = useAppSelector(state => state.categoryReducer.sort);
+
   const dispatch = useAppDispatch();
-  const { data: categor } = categoryAPI.useFetchSortRangeCategoriesQuery({
-    sort: '"name"',
-    min: 0,
-    max: 2,
+
+  const { data: category } = categoryAPI.useFetchSortRangeCategoriesQuery({
+    sort: sort ? '"name"' : "",
+    min: minRange,
+    max: maxRange,
   });
-  console.log(categories);
+
   useEffect(() => {
-    if(categor){dispatch(categorySlice.actions.categoriesFetchingSuccess(categor));}
-  }, [categor]);
+    if(category){dispatch(categorySlice.actions.categoriesFetchingSuccess(category));}
+  }, [category]);
 
   return (
     <div className="wrapper_tags">
@@ -34,7 +37,5 @@ export const Tags: React.FC = () => {
     </div>
   );
 };
-function categoriesFetchingSuccess(categoriesFetchingSuccess: any) {
-  throw new Error('Function not implemented.');
-}
+
 
