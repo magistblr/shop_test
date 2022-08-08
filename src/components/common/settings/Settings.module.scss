@@ -1,0 +1,14 @@
+.wrapper{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.wrapper:last-child{
+  justify-content: flex-end;
+}
+
+.checkbox {
+  display: flex;
+}
