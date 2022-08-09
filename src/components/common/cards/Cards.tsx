@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 
 
 import './Cards.scss';
@@ -16,15 +16,9 @@ export const Cards: React.FC = () => {
   const sortProducts = useAppSelector(state => state.productReducer.sort);
   const idCategory = useAppSelector(state => state.categoryReducer.id);
 
+  const images = useAppSelector(state => state.productReducer.images);
+
   const dispatch = useAppDispatch();
-
-  // const { data: category } = productAPI.useFetchSortRangeFilterProductsQuery({
-  //   sort: sortProducts ? '"name"' : "",
-  //   filter: idCategory,
-  //   min: minRangeProduct,
-  //   max: maxRangeProduct,
-  // });
-
 
   const { data: product } = API.useFetchSortRangeFilterProductsQuery({
     sort: sortProducts ? '"name"' : "",
@@ -32,11 +26,22 @@ export const Cards: React.FC = () => {
     min: minRangeProduct,
     max: maxRangeProduct,
   });
+  //TODO
+  // const { data: image } = API.useFetchProductImageQuery({
+  //   sort: sortImage ? '"image_name"' : "",
+  //   filter: idCategory,
+  //   min: minRangeProduct,
+  //   max: maxRangeProduct,
+  // });
 
+  useEffect(() => {
+    if (product) { dispatch(productSlice.actions.productsFetchingSuccess(product)); }
+  }, [product]);
 
-  // useEffect(() => {
-  //   dispatch(productSlice.actions.)
-  // }, [idCategory, products]);
+  useEffect(() => {
+    if (product) { dispatch(productSlice.actions.productsFetchingSuccess(product)); }
+  }, [product]);
+
 
   // const changeId = useCallback((id: number) => {
   //   dispatch(categorySlice.actions.categoriesId(id))
@@ -44,7 +49,7 @@ export const Cards: React.FC = () => {
 
   return (
     <div className="wrapper_tags">
-      {product && product.map(product => (
+      {products && products.map(product => (
         <Card
           key={product.id}
           id={product.id}

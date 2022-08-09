@@ -1,3 +1,4 @@
+import { IProductImage } from './../models/IProductImage';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 
 import { ICategory } from 'models/ICategory';
@@ -44,6 +45,21 @@ export const API = createApi({
     fetchProduct: build.query<IProduct, number>({
       query: (id: number) => ({
         url: `/Products/${id}`,
+      }),
+    }),
+    fetchProductImage: build.query<IProduct, number>({
+      query: (id: number) => ({
+        url: `/ProductImages/${id}`,
+      }),
+    }),
+    fetchProductsImage: build.query<IProductImage[], object>({
+      query: (data: any) => ({
+        url: '/ProductImages',
+        params: {
+          sort: `[${data.sort}, "ASC"]`,
+          range: `[${data.min}, ${data.max}]`,
+          filter: `{"category_id": ${data.filter}}`,
+        },
       }),
     }),
   }),

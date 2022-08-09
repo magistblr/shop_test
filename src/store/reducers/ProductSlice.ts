@@ -1,3 +1,4 @@
+import { IProductImage } from './../../models/IProductImage';
 import { IProduct } from 'models/IProduct';
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -12,6 +13,7 @@ interface ProductState {
   sort: boolean,
   checkedGlobal: boolean,
   id: number,
+  images: IProductImage[]
 }
 
 const initialState: ProductState = {
@@ -23,6 +25,7 @@ const initialState: ProductState = {
   sort: false,
   checkedGlobal: false,
   id: 0,
+  images: [],
 };
 
 export const productSlice = createSlice({

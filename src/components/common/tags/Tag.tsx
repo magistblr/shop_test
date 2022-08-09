@@ -8,9 +8,7 @@ import { TagType } from './types';
 export const Tag: React.FC<TagType> = React.memo(({ children, callback, id, idCategory }) => {
   const [click, setClick] = useState(false)
 
-  const randomColor = randomSortArray(COLOR_BUTTON)
-
-  const type = click && (id === idCategory) ? "outlined" : randomColor
+  const type = click && (id === idCategory) ? "outlined" : randomSortArray(COLOR_BUTTON)
 
   const onClickHandler = (id: number) => {
     setClick(!click)

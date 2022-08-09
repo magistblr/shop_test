@@ -14,7 +14,6 @@ export const Tags: React.FC = () => {
   const maxRange = useAppSelector(state => state.categoryReducer.maxRange);
   const sort = useAppSelector(state => state.categoryReducer.sort);
   const idCategory = useAppSelector(state => state.categoryReducer.id);
-  console.log(idCategory);
 
   const dispatch = useAppDispatch();
 
