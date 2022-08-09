@@ -1,12 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { categoryAPI } from '../services/CategoryService';
+import { API } from '../services/apiService';
 
 import categoryReducer from './reducers/CategorySlice';
+import productReducer from './reducers/ProductSlice';
 
 export const rootReducer = combineReducers({
   categoryReducer,
-  [categoryAPI.reducerPath]: categoryAPI.reducer,
+  productReducer,
+  [API.reducerPath]: API.reducer,
 });
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -14,7 +16,8 @@ export const setupStore = () =>
   configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware().concat(categoryAPI.middleware),
+      getDefaultMiddleware()
+        .concat(API.middleware),
   });
 
 export type RootState = ReturnType<typeof rootReducer>;

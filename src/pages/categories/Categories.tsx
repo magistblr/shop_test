@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-import { Card } from '../../components/common/card/Card';
 import { Tags } from '../../components/common/tags/Tags';
 import { Button } from '../../components/custom/button/Button';
 
 import s from './Categories.module.scss';
 
 import { Popup } from 'components/common/popup';
+import { Cards } from 'components/common/cards/Cards';
 
 export const Categories: React.FC = () => {
   const [openPopup, setOpenPopup] = useState<boolean>(false);
@@ -32,10 +32,7 @@ export const Categories: React.FC = () => {
         <Tags />
       </div>
       <div className={s.categories__content}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <Cards />
       </div>
       <Button type="success" text>
         Показать больше товаров

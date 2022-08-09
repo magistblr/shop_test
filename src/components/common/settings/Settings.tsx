@@ -3,7 +3,6 @@ import { Checkbox } from 'components/custom/checkbox/Checkbox';
 import MultiRangeSlider from 'components/custom/multiRangeSlider/MultiRangeSlider';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React, { useState } from 'react';
-import { categoryAPI } from 'services/CategoryService';
 import { categorySlice } from 'store/reducers/CategorySlice';
 
 import s from './Settings.module.scss';
@@ -13,7 +12,6 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
   const [rangeMin, setRangeMin] = useState(0)
   const [rangeMax, setRangeMax] = useState(24)
   const [checked, setChecked] = useState<boolean>(false)
-  console.log(checked);
 
   const minRange = useAppSelector(state => state.categoryReducer.minRange);
   const maxRange = useAppSelector(state => state.categoryReducer.maxRange);
@@ -32,7 +30,6 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
     dispatch(categorySlice.actions.categoriesSort(checked))
     dispatch(categorySlice.actions.categoriesChecked(checked))
   }
-
 
   return (
     <div className={s.wrapper}>
