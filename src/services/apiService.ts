@@ -47,18 +47,18 @@ export const API = createApi({
         url: `/Products/${id}`,
       }),
     }),
-    fetchProductImage: build.query<IProduct, number>({
+    fetchProductImage: build.query<IProductImage, number>({
       query: (id: number) => ({
         url: `/ProductImages/${id}`,
       }),
     }),
-    fetchProductsImage: build.query<IProductImage[], object>({
+    fetchSortRangeFilterProductsImage: build.query<IProductImage[], object>({
       query: (data: any) => ({
         url: '/ProductImages',
         params: {
           sort: `[${data.sort}, "ASC"]`,
           range: `[${data.min}, ${data.max}]`,
-          filter: `{"category_id": ${data.filter}}`,
+          filter: `{"product_id": ${data.filter}}`,
         },
       }),
     }),
@@ -70,4 +70,5 @@ export const { useFetchAllCategoryQuery,
   useFetchSortRangeCategoriesQuery,
   useFetchAllProductsQuery,
   useFetchSortRangeFilterProductsQuery,
+  useFetchSortRangeFilterProductsImageQuery
 } = API;

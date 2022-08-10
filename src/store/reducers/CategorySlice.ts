@@ -29,31 +29,31 @@ export const categorySlice = createSlice({
   name: 'category',
   initialState,
   reducers: {
-    categoriesFetching(state) {
+    categoriesFetching(state: CategoryState) {
       state.isLoading = true;
     },
-    categoriesFetchingSuccess(state, action: PayloadAction<ICategory[]>) {
+    categoriesFetchingSuccess(state: CategoryState, action: PayloadAction<ICategory[]>) {
       state.isLoading = false;
       state.error = '';
       state.categories = action.payload;
     },
-    categoriesFetchingError(state, action: PayloadAction<string>) {
+    categoriesFetchingError(state: CategoryState, action: PayloadAction<string>) {
       state.isLoading = false;
       state.error = action.payload;
     },
-    categoriesMin(state, action: PayloadAction<number>) {
+    categoriesMin(state: CategoryState, action: PayloadAction<number>) {
       state.minRange = action.payload;
     },
-    categoriesMax(state, action: PayloadAction<number>) {
+    categoriesMax(state: CategoryState, action: PayloadAction<number>) {
       state.maxRange = action.payload;
     },
-    categoriesSort(state, action: PayloadAction<boolean>) {
+    categoriesSort(state: CategoryState, action: PayloadAction<boolean>) {
       state.sort = action.payload;
     },
-    categoriesChecked(state, action: PayloadAction<boolean>) {
+    categoriesChecked(state: CategoryState, action: PayloadAction<boolean>) {
       state.checkedGlobal = action.payload;
     },
-    categoriesId(state, action: PayloadAction<number>) {
+    categoriesId(state: CategoryState, action: PayloadAction<number>) {
       state.id = action.payload;
     },
   },

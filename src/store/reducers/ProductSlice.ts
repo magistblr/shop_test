@@ -14,6 +14,7 @@ interface ProductState {
   checkedGlobal: boolean,
   id: number,
   images: IProductImage[]
+  imageId: number
 }
 
 const initialState: ProductState = {
@@ -26,6 +27,7 @@ const initialState: ProductState = {
   checkedGlobal: false,
   id: 0,
   images: [],
+  imageId: 0,
 };
 
 export const productSlice = createSlice({
@@ -58,6 +60,14 @@ export const productSlice = createSlice({
     },
     productsId(state: ProductState, action: PayloadAction<number>) {
       state.id = action.payload;
+    },
+    productsImagesFetchingSuccess(state: ProductState, action: PayloadAction<IProductImage[]>) {
+      state.isLoading = false;
+      state.error = '';
+      state.images = action.payload;
+    },
+    productsImage(state: ProductState, action: PayloadAction<number>) {
+      state.imageId = action.payload;
     },
   },
 });
