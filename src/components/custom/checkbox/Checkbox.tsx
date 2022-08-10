@@ -1,7 +1,7 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react'
 import s from './Checkbox.module.scss'
 
-// тип пропсов обычного инпута
+// type props of default input
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 type CheckboxPropsType = DefaultInputPropsType & {

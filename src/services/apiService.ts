@@ -1,3 +1,4 @@
+import { IProductVariations } from './../models/IProductVariations';
 import { IProductImage } from './../models/IProductImage';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 
@@ -60,6 +61,11 @@ export const API = createApi({
           range: `[${data.min}, ${data.max}]`,
           filter: `{"product_id": ${data.filter}}`,
         },
+      }),
+    }),
+    fetchProductVariations: build.query<IProductVariations, number>({
+      query: (productId: number) => ({
+        url: `/ProductVariations/${productId}`,
       }),
     }),
   }),

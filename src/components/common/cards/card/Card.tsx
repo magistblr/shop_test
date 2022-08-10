@@ -1,9 +1,8 @@
 import { Button } from 'components/custom/button/Button';
 import Carousel from 'components/custom/carousel/Carousel';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { API } from 'services/apiService';
-
-import cardImg from '../../../../assets/img/image13.png';
+import { mathMinusPercent } from 'utils/mathsFunctions';
 
 import s from './Card.module.scss';
 import { CardType } from './types';
@@ -12,6 +11,11 @@ export const Card: React.FC<CardType> = ({ description, productId }) => {
   const { data: imageApi } = API.useFetchSortRangeFilterProductsImageQuery({
     filter: productId ? productId : "",
   });
+  const { data: variationApi } = API.useFetchProductVariationsQuery(productId);
+
+  const price = variationApi ? variationApi.price : 0
+  const newPrice = mathMinusPercent(price, 10)
+
   const image1 = imageApi && `https://test2.sionic.ru/${imageApi[0].image_url}`
   const image2 = imageApi && `https://test2.sionic.ru/${imageApi[1].image_url}`
   const image3 = imageApi && `https://test2.sionic.ru/${imageApi[2].image_url}`
@@ -31,9 +35,9 @@ export const Card: React.FC<CardType> = ({ description, productId }) => {
         <p className={s.content__text}>
           {description}
         </p>
-        <div className={s.content__price}>от 350 000 ₽</div>
+        <div className={s.content__price}>от {newPrice} ₽</div>
         <div className={s.content__oldPrice}>
-          450 500 ₽<span className={s.content__discount}>-10%</span>
+          {price} ₽<span className={s.content__discount}>-10%</span>
         </div>
       </div>
       <Button block outlined>
