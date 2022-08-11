@@ -22,7 +22,7 @@ const initialState: CategoryState = {
   maxRange: 30,
   sort: false,
   checkedGlobal: false,
-  id: 0,
+  id: 21,
 };
 
 export const categorySlice = createSlice({

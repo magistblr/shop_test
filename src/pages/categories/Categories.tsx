@@ -9,6 +9,7 @@ import { Popup } from 'components/common/popup';
 import { Cards } from 'components/common/cards/Cards';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { productSlice } from 'store/reducers/ProductSlice';
+import { Settings } from 'components/common/settings';
 
 export const Categories: React.FC = () => {
   const [openPopup, setOpenPopup] = useState<boolean>(false);
@@ -20,7 +21,7 @@ export const Categories: React.FC = () => {
   const onClickPopup = (): void => {
     setOpenPopup(!openPopup);
   };
-
+  //add more products
   const onClickMore = (): void => {
     dispatch(productSlice.actions.productsMax(maxRangeProduct + 8))
   };
@@ -29,7 +30,7 @@ export const Categories: React.FC = () => {
     <div className={s.wrapper}>
       <div className={s.categories__title_settings}>
         <h3 className={s.categories__title}>Категории товаров</h3>
-        {openPopup && <Popup setOpenPopup={setOpenPopup} />}
+        {openPopup && <Popup setOpenPopup={setOpenPopup} children={<Settings setOpenPopup={setOpenPopup} />} />}
         <button
           type="button"
           className={s.categories__settings}

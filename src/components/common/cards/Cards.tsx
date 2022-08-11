@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 
-
 import './Cards.scss';
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
 import { Card } from './card/Card';
 import { API } from 'services/apiService';
 import { productSlice } from 'store/reducers/ProductSlice';
-
 
 export const Cards: React.FC = () => {
   const products = useAppSelector(state => state.productReducer.products);

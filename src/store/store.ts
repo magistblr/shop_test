@@ -4,10 +4,12 @@ import { API } from '../services/apiService';
 
 import categoryReducer from './reducers/CategorySlice';
 import productReducer from './reducers/ProductSlice';
+import appReducer from './reducers/AppSlice';
 
 export const rootReducer = combineReducers({
   categoryReducer,
   productReducer,
+  appReducer,
   [API.reducerPath]: API.reducer,
 });
 

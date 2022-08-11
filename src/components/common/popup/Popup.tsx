@@ -5,7 +5,7 @@ import { Settings } from '../settings';
 import s from './Popup.module.scss';
 import { PopupType } from './types';
 
-export const Popup: React.FC<PopupType> = ({ setOpenPopup }) => {
+export const Popup: React.FC<PopupType> = ({ setOpenPopup, children }) => {
   const sortRef = React.useRef<HTMLDivElement>(null);
 
   const handleOutsideClick = (event: any): void => {
@@ -22,7 +22,7 @@ export const Popup: React.FC<PopupType> = ({ setOpenPopup }) => {
 
   return (
     <div className={s.wrapper} ref={sortRef}>
-      <Settings setOpenPopup={setOpenPopup}/>
+      {children}
     </div>
   );
 };
