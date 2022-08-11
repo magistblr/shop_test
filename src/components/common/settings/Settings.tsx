@@ -42,7 +42,7 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
         <MultiRangeSlider
           
           min={0}
-          max={24}
+          max={30}
           onChange={({ min, max }: { min: number; max: number }) =>{
             setRangeMin(min)
             setRangeMax(--max)

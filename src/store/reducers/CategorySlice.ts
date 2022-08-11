@@ -19,7 +19,7 @@ const initialState: CategoryState = {
   isLoading: false,
   error: '',
   minRange: 0,
-  maxRange: 24,
+  maxRange: 30,
   sort: false,
   checkedGlobal: false,
   id: 0,

@@ -7,12 +7,22 @@ import s from './Categories.module.scss';
 
 import { Popup } from 'components/common/popup';
 import { Cards } from 'components/common/cards/Cards';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { productSlice } from 'store/reducers/ProductSlice';
 
 export const Categories: React.FC = () => {
   const [openPopup, setOpenPopup] = useState<boolean>(false);
 
-  const onClick = (): void => {
+  const maxRangeProduct = useAppSelector(state => state.productReducer.maxRangeProduct);
+
+  const dispatch = useAppDispatch();
+
+  const onClickPopup = (): void => {
     setOpenPopup(!openPopup);
+  };
+
+  const onClickMore = (): void => {
+    dispatch(productSlice.actions.productsMax(maxRangeProduct + 8))
   };
 
   return (
@@ -23,7 +33,7 @@ export const Categories: React.FC = () => {
         <button
           type="button"
           className={s.categories__settings}
-          onClick={() => onClick()}
+          onClick={() => onClickPopup()}
         >
           Настройки
         </button>
@@ -34,7 +44,7 @@ export const Categories: React.FC = () => {
       <div className={s.categories__content}>
         <Cards />
       </div>
-      <Button type="success" text>
+      <Button type="success" text callback={onClickMore}>
         Показать больше товаров
       </Button>
     </div>

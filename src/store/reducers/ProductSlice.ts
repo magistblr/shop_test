@@ -22,7 +22,7 @@ const initialState: ProductState = {
   isLoading: false,
   error: '',
   minRangeProduct: 0,
-  maxRangeProduct: 24,
+  maxRangeProduct: 7,
   sort: false,
   checkedGlobal: false,
   id: 0,
