@@ -1,9 +1,10 @@
-import { IProductVariations } from './../models/IProductVariations';
-import { IProductImage } from './../models/IProductImage';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
-import { ICategory } from 'models/ICategory';
-import { IProduct } from 'models/IProduct';
+import { IProductImage } from '../models/IProductImage'
+import { IProductVariations } from '../models/IProductVariations'
+
+import { ICategory } from 'models/ICategory'
+import { IProduct } from 'models/IProduct'
 
 export const API = createApi({
   reducerPath: 'API',
@@ -63,18 +64,27 @@ export const API = createApi({
         },
       }),
     }),
-    fetchProductVariations: build.query<IProductVariations, number>({
+    fetchProductVariation: build.query<IProductVariations, number>({
       query: (productId: number) => ({
         url: `/ProductVariations/${productId}`,
       }),
     }),
+    fetchProductAllVariations: build.query<IProductVariations[], object>({
+      query: (data: any) => ({
+        url: `/ProductVariations/`,
+        params: {
+          sort: `[${data.sort}, "ASC"]`,
+          range: `[${data.min}, ${data.max}]`,
+          filter: `{"product_id": ${data.filter}}`,
+        },
+      }),
+    }),
   }),
-});
-
-
-export const { useFetchAllCategoryQuery,
+})
+export const {
+  useFetchAllCategoryQuery,
   useFetchSortRangeCategoriesQuery,
   useFetchAllProductsQuery,
   useFetchSortRangeFilterProductsQuery,
-  useFetchSortRangeFilterProductsImageQuery
-} = API;
+  useFetchSortRangeFilterProductsImageQuery,
+} = API

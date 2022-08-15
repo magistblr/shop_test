@@ -1,53 +1,47 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react'
 
-import { Tag } from './Tag';
+import { Tag } from './Tag'
 
-import './Tags.scss';
-import { useAppSelector, useAppDispatch } from 'hooks/redux';
-import { categorySlice } from 'store/reducers/CategorySlice';
-import { API } from 'services/apiService';
-
+import './Tags.scss'
+import { useAppSelector, useAppDispatch } from 'hooks/redux'
+import { API } from 'services/apiService'
+import { categorySlice } from 'store/reducers/CategorySlice'
 
 export const Tags: React.FC = () => {
-  const categories = useAppSelector(state => state.categoryReducer.categories);
-  const minRange = useAppSelector(state => state.categoryReducer.minRange);
-  const maxRange = useAppSelector(state => state.categoryReducer.maxRange);
-  const sort = useAppSelector(state => state.categoryReducer.sort);
-  const idCategory = useAppSelector(state => state.categoryReducer.id);
+  const categories = useAppSelector(state => state.categoryReducer.categories)
+  const minRange = useAppSelector(state => state.categoryReducer.minRange)
+  const maxRange = useAppSelector(state => state.categoryReducer.maxRange)
+  const sort = useAppSelector(state => state.categoryReducer.sort)
+  const idCategory = useAppSelector(state => state.categoryReducer.id)
 
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   const { data: category } = API.useFetchSortRangeCategoriesQuery({
-    sort: sort ? '"name"' : "",
+    sort: sort ? '"name"' : '',
     min: minRange,
     max: maxRange,
-  });
+  })
 
   useEffect(() => {
-    if (category) { dispatch(categorySlice.actions.categoriesFetchingSuccess(category)); }
-  }, [category]);
+    if (category) {
+      dispatch(categorySlice.actions.categoriesFetchingSuccess(category))
+    }
+  }, [category])
 
   const changeId = useCallback((id: number) => {
     dispatch(categorySlice.actions.categoriesId(id))
-  }, []);
+  }, [])
 
   return (
     <ul className="wrapper_tags">
       {categories &&
         categories.map(category => (
-          <li >
-            <Tag
-              key={category.id}
-              id={category.id}
-              callback={changeId}
-              idCategory={idCategory}
-            >
+          <li key={category.id}>
+            <Tag id={category.id} callback={changeId} idCategory={idCategory}>
               {category.name}
             </Tag>
           </li>
         ))}
     </ul>
-  );
-};
-
-
+  )
+}
