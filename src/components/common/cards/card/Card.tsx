@@ -8,23 +8,45 @@ import { Button } from 'components/custom/button/Button'
 import Carousel from 'components/custom/carousel/Carousel'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { API } from 'services/apiService'
+import { productSlice } from 'store/reducers/ProductSlice'
 import { mathMinusPercent } from 'utils/mathsFunctions'
 
-export const Card: React.FC<CardType> = ({ description, productId }) => {
+export const Card: React.FC<CardType> = ({ description, productId, variations }) => {
   const globalShadow = useAppSelector(state => state.appReducer.globalShadow)
+  const products = useAppSelector(state => state.productReducer.products)
 
   const dispatch = useAppDispatch()
 
   const { data: imageApi } = API.useFetchSortRangeFilterProductsImageQuery({
     filter: productId || '',
   })
-  const { data: variationApi } = API.useFetchProductAllVariationsQuery({
-    filter: productId,
-  })
+  const { data: variationApi, isSuccess: variationSuccess } =
+    API.useFetchProductAllVariationsQuery({
+      filter: productId,
+    })
+//TODO
+  useEffect(() => {
+    if (variationApi) {
+      dispatch(
+        productSlice.actions.variationsFetchingSuccess([
+          variationApi.sort((a, b) => a.price - b.price),
+          productId,
+        ]),
+      )
+    }
+  }, [])
 
-  useEffect(() => console.log(variationApi), [])
+  useEffect(() => {
+    if (variationSuccess) {
+      dispatch(productSlice.actions.variationsFetchingSuccess([variationApi, productId]))
+    }
+  }, [])
 
-  // const pr = variationApi ? variationApi.sort((a, b) => b.price - a.price)[0].price : 0
+  const but = () => {
+    if (variationApi) {
+      dispatch(productSlice.actions.variationsFetchingSuccess([variationApi, productId]))
+    }
+  }
 
   const price = 0
   const newPrice = mathMinusPercent(price, 10)
@@ -53,7 +75,7 @@ export const Card: React.FC<CardType> = ({ description, productId }) => {
             {price} ₽<span className={s.content__discount}>-10%</span>
           </div>
         </div>
-        <Button block outlined>
+        <Button block outlined callback={but}>
           Добавить в корзину
         </Button>
       </div>

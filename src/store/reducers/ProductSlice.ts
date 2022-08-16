@@ -1,24 +1,33 @@
-import { IProductImage } from './../../models/IProductImage';
-import { IProduct } from 'models/IProduct';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import { IProductImage } from '../../models/IProductImage'
+import { IProductVariations } from '../../models/IProductVariations'
+
+import { IProduct } from 'models/IProduct'
 /* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-
 interface ProductState {
-  products: IProduct[] | undefined;
-  isLoading: boolean;
-  error: string;
-  minRangeProduct: number,
-  maxRangeProduct: number,
-  sort: boolean,
-  checkedGlobal: boolean,
-  id: number,
+  products: IProduct[]
+  isLoading: boolean
+  error: string
+  minRangeProduct: number
+  maxRangeProduct: number
+  sort: boolean
+  checkedGlobal: boolean
+  id: number
   images: IProductImage[]
   imageId: number
 }
 
 const initialState: ProductState = {
-  products: [],
+  products: [
+    {
+      id: 0,
+      name: '',
+      category_id: 0,
+      description: '',
+      variations: [],
+    },
+  ],
   isLoading: false,
   error: '',
   minRangeProduct: 0,
@@ -28,48 +37,62 @@ const initialState: ProductState = {
   id: 0,
   images: [],
   imageId: 0,
-};
+}
 
 export const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
     productsFetching(state: ProductState) {
-      state.isLoading = true;
+      state.isLoading = true
     },
     productsFetchingSuccess(state: ProductState, action: PayloadAction<IProduct[]>) {
-      state.isLoading = false;
-      state.error = '';
-      state.products = action.payload;
+      state.isLoading = false
+      state.error = ''
+      state.products = action.payload
     },
     productsFetchingError(state: ProductState, action: PayloadAction<string>) {
-      state.isLoading = false;
-      state.error = action.payload;
+      state.isLoading = false
+      state.error = action.payload
     },
     productsMin(state: ProductState, action: PayloadAction<number>) {
-      state.minRangeProduct = action.payload;
+      state.minRangeProduct = action.payload
     },
     productsMax(state: ProductState, action: PayloadAction<number>) {
-      state.maxRangeProduct = action.payload;
+      state.maxRangeProduct = action.payload
     },
     productsSort(state: ProductState, action: PayloadAction<boolean>) {
-      state.sort = action.payload;
+      state.sort = action.payload
     },
     productsChecked(state: ProductState, action: PayloadAction<boolean>) {
-      state.checkedGlobal = action.payload;
+      state.checkedGlobal = action.payload
     },
     productsId(state: ProductState, action: PayloadAction<number>) {
-      state.id = action.payload;
+      state.id = action.payload
     },
-    productsImagesFetchingSuccess(state: ProductState, action: PayloadAction<IProductImage[]>) {
-      state.isLoading = false;
-      state.error = '';
-      state.images = action.payload;
+    productsImagesFetchingSuccess(
+      state: ProductState,
+      action: PayloadAction<IProductImage[]>,
+    ) {
+      state.isLoading = false
+      state.error = ''
+      state.images = action.payload
     },
     productsImage(state: ProductState, action: PayloadAction<number>) {
-      state.imageId = action.payload;
+      state.imageId = action.payload
+    },
+    variationsFetchingSuccess(
+      state: ProductState,
+      action: PayloadAction<[IProductVariations[], number]>,
+    ) {
+      state.isLoading = false
+      state.error = ''
+      state.products.forEach(item => {
+        item.variations = []
+      })
+      state.products.forEach(item => item.variations.push(...action.payload[0]))
     },
   },
-});
+})
 
-export default productSlice.reducer;
+export default productSlice.reducer

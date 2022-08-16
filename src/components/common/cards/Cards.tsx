@@ -16,7 +16,7 @@ export const Cards: React.FC = () => {
 
   const dispatch = useAppDispatch()
 
-  const { data: product } = API.useFetchSortRangeFilterProductsQuery({
+  const { data: product, isSuccess } = API.useFetchSortRangeFilterProductsQuery({
     sort: sortProducts ? '"name"' : '',
     filter: idCategory,
     min: minRangeProduct,
@@ -35,7 +35,7 @@ export const Cards: React.FC = () => {
 
   return (
     <div className="wrapper_tags">
-      {products &&
+      {isSuccess &&
         products.map(product => (
           <Card
             key={product.id}
@@ -43,6 +43,7 @@ export const Cards: React.FC = () => {
             categoryId={idCategory}
             description={product.description}
             productId={product.id}
+            variations={product.variations}
           >
             {product.name}
           </Card>
