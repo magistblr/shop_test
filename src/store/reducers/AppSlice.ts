@@ -14,7 +14,7 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     globalShadowChange(state: AppState) {
-      state.globalShadow = !state.globalShadow;
+      state.globalShadow = true;
     },
   },
 });

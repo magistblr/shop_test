@@ -19,7 +19,7 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
 
   const dispatch = useAppDispatch();
 
-  const onChange = (check:boolean) => {
+  const onChange = (check: boolean) => {
     setChecked(check)
   }
 
@@ -35,20 +35,20 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
     <div className={s.wrapper}>
       <div className={s.checkbox}>
         <span>Сортировать по алфавиту</span>
-          <Checkbox onChangeChecked={onChange}/>
+        <Checkbox onChangeChecked={onChange} />
       </div>
       <div>
         <div>
-        <MultiRangeSlider
-          
-          min={0}
-          max={30}
-          onChange={({ min, max }: { min: number; max: number }) =>{
-            setRangeMin(min)
-            setRangeMax(--max)
-          }
-          }
-        />
+          <MultiRangeSlider
+
+            min={0}
+            max={30}
+            onChange={({ min, max }: { min: number; max: number }) => {
+              setRangeMin(min)
+              setRangeMax(--max)
+            }
+            }
+          />
         </div>
       </div>
       <button className={s.button} type="button" onClick={() => btnClose()}>
