@@ -11,6 +11,7 @@ import { API } from 'services/apiService'
 import { productSlice } from 'store/reducers/ProductSlice'
 import { mathMinusPercent } from 'utils/mathsFunctions'
 import { appSlice } from 'store/reducers/AppSlice'
+import { Variations } from 'components/common/variations/Variations'
 
 export const Card: React.FC<CardType> = ({ description, productId, variations }) => {
   const [openPopUp, setOpenPopUp] = useState(false)
@@ -47,7 +48,9 @@ export const Card: React.FC<CardType> = ({ description, productId, variations })
     <>
       {openPopUp && (
         <div className={s.wrapper__popup}>
-          <Popup setOpenPopup={setOpenPopUp} />
+          <Popup setOpenPopup={setOpenPopUp}>
+            {variationSuccess && <Variations setOpenPopUp={setOpenPopUp} variations={variationApi} />}
+          </Popup>
         </div>
       )}
       {variations &&

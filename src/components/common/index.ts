@@ -1,1 +1,2 @@
-export { Tag, Tags } from './tags';
+export { VariationCard } from './variations/variationCard';
+export { Variations } from './variations/Variations';

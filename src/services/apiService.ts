@@ -1,3 +1,5 @@
+import { IProductVariationPropertyValues } from './../models/IProductVariationPropertyValues';
+import { IProductVariationProperties } from './../models/IProductVariationProperties';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
 import { IProductImage } from '../models/IProductImage'
@@ -79,6 +81,21 @@ export const API = createApi({
         },
       }),
     }),
+    fetchProductAllVariationsProperties: build.query<IProductVariationProperties[], string>({
+      query: () => ({
+        url: `/ProductVariationProperties`,
+      }),
+    }),
+    fetchProductVariationProperty: build.query<IProductVariationProperties, number>({
+      query: (propertiesId: number) => ({
+        url: `/ProductVariationProperties/${propertiesId}`,
+      }),
+    }),
+    fetchProductVariationPropertyValues: build.query<IProductVariationPropertyValues[], string>({
+      query: () => ({
+        url: `/ProductVariationPropertyValues/`,
+      }),
+    }),
   }),
 })
 export const {
@@ -87,4 +104,6 @@ export const {
   useFetchAllProductsQuery,
   useFetchSortRangeFilterProductsQuery,
   useFetchSortRangeFilterProductsImageQuery,
+  useFetchProductAllVariationsPropertiesQuery,
+  useFetchProductVariationPropertyQuery
 } = API
