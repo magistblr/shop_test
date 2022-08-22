@@ -11,6 +11,7 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
   // const [openPopUp, setOpenPopUp] = useState(false)
   const products = useAppSelector(state => state.productReducer.products)
   const variations = useAppSelector(state => state.productReducer.products.find(item => item.id === productVariationId)?.variations)
+  console.log(variations);
 
   const dispatch = useAppDispatch()
 
@@ -18,6 +19,7 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
   //   filter: productId || '',
   // })
   const { packageProduct, wide, color, height, length, size, weight } = useVariation(productVariationId, productVariationId, productVariationId)
+
   useEffect(() => {
 
     if (packageProduct) {
@@ -34,7 +36,7 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
         {variationsProperties.map(property =>
           <div>
             <span>{property.name} </span>
-
+            {variations && variations.map(item => item.valuesList.map(item => <div>{item}</div>))}
           </div>
         )}
         <Button block outlined callback={() => setOpenPopUp(false)}>
