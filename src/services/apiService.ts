@@ -1,3 +1,4 @@
+import { IProductVariationPropertyListValues } from './../models/IProductVariationPropertyListValues';
 import { IProductVariationPropertyValues } from './../models/IProductVariationPropertyValues';
 import { IProductVariationProperties } from './../models/IProductVariationProperties';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
@@ -91,9 +92,17 @@ export const API = createApi({
         url: `/ProductVariationProperties/${propertiesId}`,
       }),
     }),
-    fetchProductVariationPropertyValues: build.query<IProductVariationPropertyValues[], string>({
-      query: () => ({
+    fetchProductVariationListValues: build.query<IProductVariationPropertyListValues, number>({
+      query: (variationPropertyId: number) => ({
+        url: `/ProductVariationPropertyListValues/${variationPropertyId}`,
+      }),
+    }),
+    fetchProductVariationPropertyValues: build.query<IProductVariationPropertyValues[], {}>({
+      query: (data: any) => ({
         url: `/ProductVariationPropertyValues/`,
+        params: {
+          filter: `{"product_variation_id": ${data.filter}}`,
+        },
       }),
     }),
   }),

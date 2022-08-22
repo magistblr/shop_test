@@ -20,8 +20,6 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations 
   //   }
   // }, [variationSuccess])
 
-  // const closePopUp = () => {}
-
   return (
     <>
       <div className={s.wrapper}>

@@ -1,3 +1,4 @@
+import { IProductVariationsValues } from './../../models/IProductVariations';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { IProductImage } from '../../models/IProductImage'
@@ -91,6 +92,18 @@ export const productSlice = createSlice({
         item.variations = []
       })
       state.products.forEach(item => item.variations.push(...action.payload[0]))
+    },
+    variationsAddValues(
+      state: ProductState,
+      action: PayloadAction<[IProductVariationsValues, number]>,
+    ) {
+      state.isLoading = false
+      state.error = ''
+      state.products.forEach(item => {
+        item.variations.forEach(item => {
+          item.valuesList.push({ ...action.payload[0] })
+        })
+      })
     },
   },
 })
