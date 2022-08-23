@@ -26,8 +26,11 @@ export const Cards: React.FC = () => {
   useEffect(() => {
     if (product) {
       dispatch(productSlice.actions.productsFetchingSuccess(product))
+      dispatch(productSlice.actions.variationsAdd([]))
     }
   }, [product])
+
+
 
   // const changeId = useCallback((id: number) => {
   //   dispatch(categorySlice.actions.categoriesId(id))
@@ -36,14 +39,13 @@ export const Cards: React.FC = () => {
   return (
     <div className="wrapper_tags">
       {isSuccess &&
-        products.map(product => (
+        product.map(product => (
           <Card
             key={product.id}
             id={product.id}
             categoryId={idCategory}
             description={product.description}
             productId={product.id}
-            variations={product.variations}
           >
             {product.name}
           </Card>

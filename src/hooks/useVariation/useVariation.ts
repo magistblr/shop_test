@@ -2,9 +2,7 @@ import { IProductVariationPropertyValues } from './../../models/IProductVariatio
 import { API } from 'services/apiService';
 import { useState, useEffect } from 'react';
 
-
-//TODO
-export const useVariation = (productVariationId: number, productVariationPropertyId: number, productVariationPropertyListValueId: number) => {
+export const useFetchVariation = (productVariationId: number) => {
     const [packageProduct, setPackageProduct] = useState<string>('');
     const [color, setColor] = useState<string>('');
     const [size, setSize] = useState<string>('');
@@ -14,21 +12,13 @@ export const useVariation = (productVariationId: number, productVariationPropert
     const [weight, setWeight] = useState<number>(0);
     const [sizeId, setSizeId] = useState<number>(0);
     const [colorId, setColorId] = useState<number>(0);
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
     const { data: variationsPropertyValues, isSuccess: variationsValuesSuccess } = API.useFetchProductVariationPropertyValuesQuery({
         filter: productVariationId
     });
-
-    useEffect(() => {
-        if (variationsValuesSuccess) {
-            if (variationsPropertyValues[5].product_variation_property_list_value_id) {
-                setSizeId(variationsPropertyValues[5].product_variation_property_list_value_id)
-            }
-            if (variationsPropertyValues[6].product_variation_property_id) {
-                setColorId(variationsPropertyValues[5].product_variation_property_id)
-            }
-        }
-    }, [sizeId, colorId])
+    const { data: variationListValuesSize, isSuccess: variationListValuesSizeSuccess } = API.useFetchProductVariationListValuesQuery(sizeId);
+    const { data: variationListValuesColor, isSuccess: variationListValuesColorSuccess } = API.useFetchProductVariationListValuesQuery(colorId)
 
     useEffect(() => {
         if (variationsValuesSuccess) {
@@ -48,16 +38,34 @@ export const useVariation = (productVariationId: number, productVariationPropert
                 setWeight(variationsPropertyValues[4].value_float)
             }
             if (variationListValuesSizeSuccess) {
-                setSize(variationListValuesSize.value)
+                setSize(variationListValuesSize.title)
             }
             if (variationListValuesColorSuccess) {
-                setColor(variationListValuesColor.value)
+                setColor(variationListValuesColor.title)
             }
         }
-    });
+    }), [variationListValuesSizeSuccess, variationListValuesColorSuccess, variationsValuesSuccess];
 
-    const { data: variationListValuesSize, isSuccess: variationListValuesSizeSuccess } = API.useFetchProductVariationListValuesQuery(sizeId);
-    const { data: variationListValuesColor, isSuccess: variationListValuesColorSuccess } = API.useFetchProductVariationListValuesQuery(colorId);
-    console.log(variationListValuesColor);
-    return { packageProduct, color, height, length, size, weight, wide };
+    useEffect(() => {
+        if (variationsValuesSuccess) {
+            if (variationsPropertyValues[5].product_variation_property_list_value_id) {
+                setSizeId(variationsPropertyValues[5].product_variation_property_list_value_id)
+            }
+            if (variationsPropertyValues[6].product_variation_property_id) {
+                setColorId(variationsPropertyValues[5].product_variation_property_id)
+            }
+        }
+    }, [variationsValuesSuccess])
+
+    useEffect(() => {
+        if (variationsValuesSuccess) {
+            if (packageProduct && color && size && wide && length && height && weight) {
+                setIsSuccess(true)
+            } else {
+                setIsSuccess(false)
+            }
+        }
+    }, [packageProduct, color, size, wide, length, height, weight])
+
+    return { packageProduct, color, height, length, size, weight, wide, isSuccess };
 }

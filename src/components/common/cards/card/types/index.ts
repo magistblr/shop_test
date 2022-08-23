@@ -8,5 +8,4 @@ export type CardType = {
   description: string
   categoryId: number
   productId: number
-  variations: IProductVariations[]
 }

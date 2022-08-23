@@ -20,15 +20,7 @@ interface ProductState {
 }
 
 const initialState: ProductState = {
-  products: [
-    {
-      id: 0,
-      name: '',
-      category_id: 0,
-      description: '',
-      variations: [],
-    },
-  ],
+  products: [],
   isLoading: false,
   error: '',
   minRangeProduct: 0,
@@ -50,7 +42,8 @@ export const productSlice = createSlice({
     productsFetchingSuccess(state: ProductState, action: PayloadAction<IProduct[]>) {
       state.isLoading = false
       state.error = ''
-      state.products = action.payload
+      state.products = []
+      state.products.push(...action.payload)
     },
     productsFetchingError(state: ProductState, action: PayloadAction<string>) {
       state.isLoading = false
@@ -82,26 +75,31 @@ export const productSlice = createSlice({
     productsImage(state: ProductState, action: PayloadAction<number>) {
       state.imageId = action.payload
     },
+    variationsAdd(
+      state: ProductState,
+      action: PayloadAction<[]>,
+    ) {
+      state.isLoading = false
+      state.error = ''
+      state.products.forEach(item => {
+        item.variations = action.payload
+      })
+    },
     variationsFetchingSuccess(
       state: ProductState,
       action: PayloadAction<[IProductVariations[], number]>,
     ) {
       state.isLoading = false
       state.error = ''
-      state.products.forEach(item => {
-        item.variations = []
-      })
-      state.products.forEach(item => item.variations.push(...action.payload[0]))
+      state.products.forEach(item => item.id === action.payload[1] ? item.variations.push(...action.payload[0]) : '')
     },
-    variationsAddValues(
+    variationsAddFetchValues(
       state: ProductState,
       action: PayloadAction<[IProductVariationsValues, number]>,
     ) {
-      state.isLoading = false
-      state.error = ''
       state.products.forEach(item => {
         item.variations.forEach(item => {
-          item.valuesList.push({ ...action.payload[0] })
+          item.values = action.payload[0]
         })
       })
     },

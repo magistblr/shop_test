@@ -8,38 +8,33 @@ import { Button } from 'components/custom/button/Button'
 import Carousel from 'components/custom/carousel/Carousel'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { API } from 'services/apiService'
-import { productSlice } from 'store/reducers/ProductSlice'
-import { mathMinusPercent } from 'utils/mathsFunctions'
-import { appSlice } from 'store/reducers/AppSlice'
 import { Variations } from 'components/common/variations/Variations'
+import { productSlice } from 'store/reducers/ProductSlice'
 
-export const Card: React.FC<CardType> = ({ description, productId, variations }) => {
+export const Card: React.FC<CardType> = ({ description, productId }) => {
   const [openPopUp, setOpenPopUp] = useState(false)
-  const globalShadow = useAppSelector(state => state.appReducer.globalShadow)
   const products = useAppSelector(state => state.productReducer.products)
 
   const dispatch = useAppDispatch()
-
+  //fetch images
   const { data: imageApi } = API.useFetchSortRangeFilterProductsImageQuery({
     filter: productId || '',
   })
+  //fetch variations
   const { data: variationApi, isSuccess: variationSuccess } =
     API.useFetchProductAllVariationsQuery({
       filter: productId,
     })
-
+  //add variations to store
   useEffect(() => {
     if (variationSuccess) {
       dispatch(productSlice.actions.variationsFetchingSuccess([variationApi, productId]))
     }
-  }, [variationSuccess])
+  }, [variationApi])
+
 
   //TODO
   // const newPrice = mathMinusPercent(price, 10)
-
-  const closePopUp = () => {
-
-  }
 
   const image1 = imageApi && `https://test2.sionic.ru/${imageApi[0].image_url}`
   const image2 = imageApi && `https://test2.sionic.ru/${imageApi[1].image_url}`
@@ -53,7 +48,7 @@ export const Card: React.FC<CardType> = ({ description, productId, variations })
           </Popup>
         </div>
       )}
-      {variations &&
+      {products &&
         <div className={s.wrapper}>
           <Carousel show={1}>
             <img src={image1} alt="card" className={s.card__img} />

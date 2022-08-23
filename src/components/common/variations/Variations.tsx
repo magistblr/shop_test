@@ -9,7 +9,6 @@ import { API } from 'services/apiService'
 
 export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations }) => {
   // const [openPopUp, setOpenPopUp] = useState(false)
-  const products = useAppSelector(state => state.productReducer.products)
 
   const dispatch = useAppDispatch()
 
@@ -19,6 +18,8 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations 
   //     dispatch(productSlice.actions.variationsFetchingSuccess([variationApi, productId]))
   //   }
   // }, [variationSuccess])
+  console.log(variations);
+
 
   return (
     <>
@@ -26,6 +27,7 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations 
         {variationsPropertiesSuccess
           && variations.map((item) =>
             <VariationCard
+              key={item.id}
               setOpenPopUp={setOpenPopUp}
               variationsProperties={variationsProperties}
               productVariationId={item.id}
