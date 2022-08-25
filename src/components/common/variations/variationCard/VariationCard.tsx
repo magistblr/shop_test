@@ -9,21 +9,16 @@ import { productSlice } from 'store/reducers/ProductSlice'
 
 export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId }) => {
   // const [openPopUp, setOpenPopUp] = useState(false)
-  const products = useAppSelector(state => state.productReducer.products)
-  console.log(products);
-  console.log(productVariationId);
-
   const dispatch = useAppDispatch()
 
   const { packageProduct, wide, color, height, length, size, weight, isSuccess } = useFetchVariation(productVariationId)
-  console.log(color);
-  console.log(packageProduct);
+  const values = [packageProduct, wide, length, height, weight, size, color]
 
   useEffect(() => {
     if (isSuccess) {
       dispatch(productSlice.actions.variationsAddFetchValues([{ packageProduct, wide, color, height, length, size, weight }, productVariationId]))
     }
-  }, [isSuccess, productVariationId])
+  }, [productVariationId, isSuccess, variationsProperties])
 
   // const { data: variationApi, isSuccess: variationSuccess } =
   //   API.useFetchProductAllVariationsQuery({
@@ -40,17 +35,24 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
   //   }
   // }, [variationApi])
 
+  const products = useAppSelector(state => state.productReducer.products)
   //TODO
 
   return (
     <>
       <div className={s.wrapper}>
-        {variationsProperties.map(property =>
-          <div>
-            <span>{property.name} </span>
-            {/* {variations && variations.map(item => <div>{item.values.color}</div>)} */}
+        <div className={s.variations_wrapper}>
+          <div className={s.variations_name}>
+            {variationsProperties.map(property =>
+              <div>{property.name} </div>
+            )}
           </div>
-        )}
+          <div className={s.variations_value}>
+            {values.map(item =>
+              <div>{item} </div>
+            )}
+          </div>
+        </div>
         <Button block outlined callback={() => setOpenPopUp(false)}>
           В корзину
         </Button>

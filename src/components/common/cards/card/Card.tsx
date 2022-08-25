@@ -10,11 +10,11 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { API } from 'services/apiService'
 import { Variations } from 'components/common/variations/Variations'
 import { productSlice } from 'store/reducers/ProductSlice'
+import { useGetPrice } from 'hooks/useGetPrice/useGetPrice'
 
 export const Card: React.FC<CardType> = ({ description, productId }) => {
   const [openPopUp, setOpenPopUp] = useState(false)
   const products = useAppSelector(state => state.productReducer.products)
-
   const dispatch = useAppDispatch()
   //fetch images
   const { data: imageApi } = API.useFetchSortRangeFilterProductsImageQuery({
@@ -32,9 +32,9 @@ export const Card: React.FC<CardType> = ({ description, productId }) => {
     }
   }, [variationApi])
 
+  const { price, newPrice, isSuccess: priceIsSuccess } = useGetPrice(productId)
 
   //TODO
-  // const newPrice = mathMinusPercent(price, 10)
 
   const image1 = imageApi && `https://test2.sionic.ru/${imageApi[0].image_url}`
   const image2 = imageApi && `https://test2.sionic.ru/${imageApi[1].image_url}`
@@ -58,9 +58,9 @@ export const Card: React.FC<CardType> = ({ description, productId }) => {
           <div className={s.card__tags} />
           <div className={s.card__content}>
             <p className={s.content__text}>{description}</p>
-            <div className={s.content__price}>от {0} ₽</div>
+            <div className={s.content__price}>от {newPrice && newPrice} ₽</div>
             <div className={s.content__oldPrice}>
-              {0} ₽<span className={s.content__discount}>-10%</span>
+              {price && price} ₽<span className={s.content__discount}>-10%</span>
             </div>
           </div>
           <Button block outlined callback={() => setOpenPopUp(true)}>

@@ -99,7 +99,7 @@ export const productSlice = createSlice({
     ) {
       state.products.forEach(item => {
         item.variations.forEach(item => {
-          item.values = action.payload[0]
+          item.id === action.payload[1] ? item.values = action.payload[0] : item.values
         })
       })
     },

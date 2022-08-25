@@ -1,5 +1,26 @@
 .wrapper {
-  width: 220px;
-  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 290px;
+  min-height: 250px;
   border: 1px solid;
+  margin-right: 5px;
+}
+
+.wrapper:last-child {
+  margin-right: 0;
+}
+
+.variations_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.variations_name,
+.variations_value {
+  margin-bottom: 5px;
+  min-height: 20px;
+  padding: 5px
 }
