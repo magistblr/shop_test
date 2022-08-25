@@ -4,4 +4,5 @@ export type VariationCardType = {
   setOpenPopUp: (closePopUp: boolean) => void
   variationsProperties: IProductVariationProperties[]
   productVariationId: number
+  id: number
 }

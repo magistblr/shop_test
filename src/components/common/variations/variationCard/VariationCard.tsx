@@ -7,7 +7,7 @@ import { VariationCardType } from './types'
 import { useFetchVariation } from 'hooks/useVariation/useVariation'
 import { productSlice } from 'store/reducers/ProductSlice'
 
-export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId }) => {
+export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, id }) => {
   // const [openPopUp, setOpenPopUp] = useState(false)
   const dispatch = useAppDispatch()
 

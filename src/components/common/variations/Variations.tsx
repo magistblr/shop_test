@@ -31,6 +31,7 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations 
               setOpenPopUp={setOpenPopUp}
               variationsProperties={variationsProperties}
               productVariationId={item.id}
+              id={item.id}
             />
           )
         }
