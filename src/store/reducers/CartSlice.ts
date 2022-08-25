@@ -10,9 +10,9 @@ interface ProductState {
 const initialState: ProductState = {
   productVariations: [],
 }
-
+//TODO
 export const cartSlice = createSlice({
-  name: 'product',
+  name: 'cart',
   initialState,
   reducers: {
     productVariationsAdd(
