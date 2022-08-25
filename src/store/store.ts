@@ -5,11 +5,13 @@ import { API } from '../services/apiService'
 import appReducer from './reducers/AppSlice'
 import categoryReducer from './reducers/CategorySlice'
 import productReducer from './reducers/ProductSlice'
+import cartReducer from './reducers/CartSlice'
 
 export const rootReducer = combineReducers({
   categoryReducer,
   productReducer,
   appReducer,
+  cartReducer,
   [API.reducerPath]: API.reducer,
 })
 
