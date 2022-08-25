@@ -12,7 +12,6 @@ export const Tags: React.FC = () => {
   const minRange = useAppSelector(state => state.categoryReducer.minRange)
   const maxRange = useAppSelector(state => state.categoryReducer.maxRange)
   const sort = useAppSelector(state => state.categoryReducer.sort)
-  const idCategory = useAppSelector(state => state.categoryReducer.id)
 
   const dispatch = useAppDispatch()
 
@@ -37,7 +36,7 @@ export const Tags: React.FC = () => {
       {categories &&
         categories.map((category) => (
           <li key={category.id}>
-            <Tag id={category.id} callback={changeId} idCategory={idCategory}>
+            <Tag id={category.id} callback={changeId}>
               {category.name}
             </Tag>
           </li>
