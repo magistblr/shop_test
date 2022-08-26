@@ -1,4 +1,3 @@
-import { useAppSelector } from 'hooks/redux'
 import React from 'react'
 
 import '../../scss/App.scss'
@@ -8,7 +7,6 @@ import { RightPanel } from '../rightPanel/RightPanel'
 import RoutesList from '../RoutesList'
 
 const App: React.FC = () => {
-  const { globalShadow } = useAppSelector(state => state.appReducer)
   return <div className="container">
     <div className="main__wrapper">
       <div className="header__pages__wrapper">

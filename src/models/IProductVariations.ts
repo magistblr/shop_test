@@ -3,7 +3,7 @@ export interface IProductVariations {
   price: number
   product_id: number
   stock: number
-  values: IProductVariationsValues
+  values?: IProductVariationsValues
 }
 
 export interface IProductVariationsValues {

@@ -30,12 +30,6 @@ export const Cards: React.FC = () => {
     }
   }, [product])
 
-
-
-  // const changeId = useCallback((id: number) => {
-  //   dispatch(categorySlice.actions.categoriesId(id))
-  // }, []);
-
   return (
     <div className="wrapper_tags">
       {isSuccess &&

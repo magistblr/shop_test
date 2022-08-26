@@ -13,10 +13,6 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
   const [rangeMax, setRangeMax] = useState(24)
   const [checked, setChecked] = useState<boolean>(false)
 
-  const minRange = useAppSelector(state => state.categoryReducer.minRange);
-  const maxRange = useAppSelector(state => state.categoryReducer.maxRange);
-  const checkedGlobal = useAppSelector(state => state.categoryReducer.checkedGlobal);
-
   const dispatch = useAppDispatch();
 
   const onChange = (check: boolean) => {
@@ -40,7 +36,6 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
       <div>
         <div>
           <MultiRangeSlider
-
             min={0}
             max={30}
             onChange={({ min, max }: { min: number; max: number }) => {

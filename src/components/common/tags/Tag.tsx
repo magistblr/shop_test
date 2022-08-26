@@ -17,16 +17,13 @@ export const Tag: React.FC<TagType> = React.memo(({ children, id }) => {
 
   const dispatch = useAppDispatch()
 
-
+  //TODO
   const type = click && (id === idCategory) ? "outlined" : randomSortArray(COLOR_BUTTON)
 
   const onClickHandler = (id: number) => {
     dispatch(categorySlice.actions.categoriesId(id))
     setClick(!click)
-    // callback(id)
   }
-
-
 
   return (
     <div className="wrapper">

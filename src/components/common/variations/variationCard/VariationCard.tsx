@@ -1,18 +1,20 @@
 import { Button } from 'components/custom/button/Button'
-import { useAppDispatch, useAppSelector } from 'hooks/redux'
+import { useAppDispatch } from 'hooks/redux'
 import React, { useEffect, useState } from 'react'
 
 import s from './VariationCard.module.scss'
 import { VariationCardType } from './types'
 import { useFetchVariation } from 'hooks/useVariation/useVariation'
 import { productSlice } from 'store/reducers/ProductSlice'
+import { cartSlice } from 'store/reducers/CartSlice'
+import { useGetProductCart } from 'hooks/useGetProductCart/useGetProductCart'
 
-export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, id }) => {
-  // const [openPopUp, setOpenPopUp] = useState(false)
+export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, productId, callback }) => {
   const dispatch = useAppDispatch()
 
   const { packageProduct, wide, color, height, length, size, weight, isSuccess } = useFetchVariation(productVariationId)
   const values = [packageProduct, wide, length, height, weight, size, color]
+
 
   useEffect(() => {
     if (isSuccess) {
@@ -20,23 +22,12 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
     }
   }, [productVariationId, isSuccess, variationsProperties])
 
-  // const { data: variationApi, isSuccess: variationSuccess } =
-  //   API.useFetchProductAllVariationsQuery({
-  //     filter: productId,
-  //   })
-
-
-  // console.log(variationApi);
-
-
-  // useEffect(() => {
-  //   if (variationSuccess) {
-  //     dispatch(productSlice.actions.variationsFetchingSuccess([variationApi, productId]))
-  //   }
-  // }, [variationApi])
-
-  const products = useAppSelector(state => state.productReducer.products)
+  // const { productCart } = useGetProductCart(productVariationId, productId)
   //TODO
+  const btnHandler = (id: number) => {
+    callback(id)
+    setOpenPopUp(false)
+  }
 
   return (
     <>
@@ -53,7 +44,7 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
             )}
           </div>
         </div>
-        <Button block outlined callback={() => setOpenPopUp(false)}>
+        <Button outlined callback={() => btnHandler(productVariationId)}>
           В корзину
         </Button>
       </div>

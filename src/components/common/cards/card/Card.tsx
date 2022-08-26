@@ -15,6 +15,8 @@ import { useGetPrice } from 'hooks/useGetPrice/useGetPrice'
 export const Card: React.FC<CardType> = ({ description, productId }) => {
   const [openPopUp, setOpenPopUp] = useState(false)
   const products = useAppSelector(state => state.productReducer.products)
+  const id = useAppSelector(state => state.cartReducer.id)
+
   const dispatch = useAppDispatch()
   //fetch images
   const { data: imageApi } = API.useFetchSortRangeFilterProductsImageQuery({
@@ -32,6 +34,7 @@ export const Card: React.FC<CardType> = ({ description, productId }) => {
     }
   }, [variationApi])
 
+
   const { price, newPrice, isSuccess: priceIsSuccess } = useGetPrice(productId)
 
   //TODO
@@ -44,7 +47,7 @@ export const Card: React.FC<CardType> = ({ description, productId }) => {
       {openPopUp && (
         <div className={s.wrapper__popup}>
           <Popup setOpenPopup={setOpenPopUp}>
-            {variationSuccess && <Variations setOpenPopUp={setOpenPopUp} variations={variationApi} />}
+            {variationSuccess && <Variations setOpenPopUp={setOpenPopUp} variations={variationApi} productId={productId} id={id}/>}
           </Popup>
         </div>
       )}
