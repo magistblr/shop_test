@@ -11,11 +11,20 @@ import { API } from 'services/apiService'
 import { Variations } from 'components/common/variations/Variations'
 import { productSlice } from 'store/reducers/ProductSlice'
 import { useGetPrice } from 'hooks/useGetPrice/useGetPrice'
+import { useGetProductCart } from 'hooks/useGetProductCart/useGetProductCart'
+import { cartSlice } from 'store/reducers/CartSlice'
 
-export const Card: React.FC<CardType> = ({ description, productId }) => {
+export const Card: React.FC<CardType> = React.memo(({ description, productId }) => {
   const [openPopUp, setOpenPopUp] = useState(false)
   const products = useAppSelector(state => state.productReducer.products)
   const id = useAppSelector(state => state.cartReducer.id)
+  const productIdState = useAppSelector(state => state.productReducer.id)
+
+  const foo = (productId: number) => {
+    dispatch(productSlice.actions.productsId(productId))
+    setOpenPopUp(true)
+  }
+
 
   const dispatch = useAppDispatch()
   //fetch images
@@ -33,7 +42,23 @@ export const Card: React.FC<CardType> = ({ description, productId }) => {
       dispatch(productSlice.actions.variationsFetchingSuccess([variationApi, productId]))
     }
   }, [variationApi])
+  // const { productCart, variation } = useGetProductCart(id, productIdState)
 
+  // useEffect(() => {
+  //   if (productCart && variation) {
+  //     debugger
+  //     if (productId === productIdState) {
+  //       dispatch(cartSlice.actions.productVariationsAdd(
+  //         {
+  //           id: productCart.id,
+  //           name: productCart.name,
+  //           price: variation.price,
+  //           stock: variation.stock
+  //         }
+  //       ))
+  //     }
+  //   }
+  // }, [productCart, variation])
 
   const { price, newPrice, isSuccess: priceIsSuccess } = useGetPrice(productId)
 
@@ -47,7 +72,7 @@ export const Card: React.FC<CardType> = ({ description, productId }) => {
       {openPopUp && (
         <div className={s.wrapper__popup}>
           <Popup setOpenPopup={setOpenPopUp}>
-            {variationSuccess && <Variations setOpenPopUp={setOpenPopUp} variations={variationApi} productId={productId} id={id}/>}
+            {variationSuccess && <Variations setOpenPopUp={setOpenPopUp} variations={variationApi} productId={productId} id={id} />}
           </Popup>
         </div>
       )}
@@ -66,11 +91,11 @@ export const Card: React.FC<CardType> = ({ description, productId }) => {
               {price && price} ₽<span className={s.content__discount}>-10%</span>
             </div>
           </div>
-          <Button block outlined callback={() => setOpenPopUp(true)}>
+          <Button block outlined callback={() => foo(productId)}>
             Добавить в корзину
           </Button>
         </div>
       }
     </>
   )
-}
+})

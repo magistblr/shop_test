@@ -30,6 +30,7 @@ export const Cards: React.FC = () => {
     }
   }, [product])
 
+
   return (
     <div className="wrapper_tags">
       {isSuccess &&

@@ -1,20 +1,24 @@
 import { Button } from 'components/custom/button/Button'
-import { useAppDispatch } from 'hooks/redux'
-import React, { useEffect, useState } from 'react'
+import { useAppDispatch, useAppSelector } from 'hooks/redux'
+import React, { useEffect } from 'react'
 
 import s from './VariationCard.module.scss'
 import { VariationCardType } from './types'
 import { useFetchVariation } from 'hooks/useVariation/useVariation'
 import { productSlice } from 'store/reducers/ProductSlice'
-import { cartSlice } from 'store/reducers/CartSlice'
 import { useGetProductCart } from 'hooks/useGetProductCart/useGetProductCart'
+import { cartSlice } from 'store/reducers/CartSlice'
 
-export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, productId, callback }) => {
+export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, callback }) => {
   const dispatch = useAppDispatch()
+  const id = useAppSelector(state => state.cartReducer.id)
+  const productId = useAppSelector(state => state.productReducer.id)
+  // const { productCart, variation } = useGetProductCart(id, productId)
+  // console.log(productCart);
+  // console.log(variation);
 
   const { packageProduct, wide, color, height, length, size, weight, isSuccess } = useFetchVariation(productVariationId)
   const values = [packageProduct, wide, length, height, weight, size, color]
-
 
   useEffect(() => {
     if (isSuccess) {
@@ -22,12 +26,18 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
     }
   }, [productVariationId, isSuccess, variationsProperties])
 
-  // const { productCart } = useGetProductCart(productVariationId, productId)
+  // useEffect(() => {
+  // }, [productCart, variation])
+
   //TODO
   const btnHandler = (id: number) => {
-    callback(id)
+    //   debugger
+    // dispatch(cartSlice.actions.productVariationsAdd({ id: productCart.id, name: productCart.name, price: variation.price, stock: variation.stock }))
+    dispatch(cartSlice.actions.id(id))
     setOpenPopUp(false)
+    callback(1)
   }
+
 
   return (
     <>

@@ -8,21 +8,32 @@ import { cartSlice } from 'store/reducers/CartSlice'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { useGetProductCart } from 'hooks/useGetProductCart/useGetProductCart'
 
-export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations, productId, id }) => {
+export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations }) => {
   // const [openPopUp, setOpenPopUp] = useState(false)
 
   const { data: variationsProperties, isSuccess: variationsPropertiesSuccess } = API.useFetchProductAllVariationsPropertiesQuery('')
   const dispatch = useAppDispatch()
+  const id = useAppSelector(state => state.cartReducer.id)
+  const productId = useAppSelector(state => state.productReducer.id)
 
-  const foo = (id: number) => {
-    dispatch(cartSlice.actions.id(id))
+
+  //TODO (не добавляет в корзину, нужны зависимости)
+  const { productCart, variation } = useGetProductCart(id, productId)
+  const foo = (num: number) => {
+    if (productCart && variation) {
+      if (num === 1) {
+        dispatch(cartSlice.actions.productVariationsAdd(
+          {
+            id: productCart.id,
+            name: productCart.name,
+            price: variation.price,
+            stock: variation.stock
+          }
+        ))
+      }
+    }
   }
-  //TODO
-  const { productCart } = useGetProductCart(id, productId)
-  console.log(productCart);
 
-  // useEffect(() => console.log(id)
-  //   , [id])
 
   return (
     <>
@@ -34,7 +45,6 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations,
               setOpenPopUp={setOpenPopUp}
               variationsProperties={variationsProperties}
               productVariationId={item.id}
-              productId={productId}
               callback={foo}
             />
           )

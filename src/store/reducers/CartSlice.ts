@@ -12,10 +12,8 @@ interface ProductState {
 export type ProductCart = {
   id: number
   name: string
-  variation: {
-    price: number
-    stock: number
-  }
+  price: number
+  stock: number
 }
 
 const initialState: ProductState = {
@@ -34,9 +32,10 @@ export const cartSlice = createSlice({
       state: ProductState,
       action: PayloadAction<ProductCart>,
     ) {
-      state.productVariations = [...state.productVariations, action.payload]
+      state.productVariations.push(action.payload)
       state.products = state.productVariations.length
-      state.totalPrice = state.productVariations.reduce((acc, item) => acc + item.variation.price, 0)
+      state.totalPrice = state.productVariations.reduce((acc, item) => acc + item.price, 0)
+      state.id = 0
     },
     productVariationsRemove(
       state: ProductState,
