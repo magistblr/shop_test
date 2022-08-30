@@ -12,18 +12,22 @@ export const Tag: React.FC<TagType> = React.memo(({ children, id }) => {
   const [disable, setDisable] = useState(false)
 
   const idCategory = useAppSelector(state => state.categoryReducer.id)
-  console.log(id);
-  console.log(idCategory);
 
   const dispatch = useAppDispatch()
 
-  //TODO
   const type = click && (id === idCategory) ? "outlined" : randomSortArray(COLOR_BUTTON)
 
   const onClickHandler = (id: number) => {
     dispatch(categorySlice.actions.categoriesId(id))
-    setClick(!click)
+    setClick(true)
   }
+
+  useEffect(() => {
+    if (click) {
+      setDisable(false)
+    }
+    return () => { setDisable(true) }
+  }, [click])
 
   return (
     <div className="wrapper">

@@ -25,7 +25,6 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
     setOpenPopUp(true)
   }
 
-
   const dispatch = useAppDispatch()
   //fetch images
   const { data: imageApi } = API.useFetchSortRangeFilterProductsImageQuery({
@@ -61,8 +60,6 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
   // }, [productCart, variation])
 
   const { price, newPrice, isSuccess: priceIsSuccess } = useGetPrice(productId)
-
-  //TODO
 
   const image1 = imageApi && `https://test2.sionic.ru/${imageApi[0].image_url}`
   const image2 = imageApi && `https://test2.sionic.ru/${imageApi[1].image_url}`

@@ -16,7 +16,6 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations 
   const id = useAppSelector(state => state.cartReducer.id)
   const productId = useAppSelector(state => state.productReducer.id)
 
-
   //TODO (не добавляет в корзину, нужны зависимости)
   const { productCart, variation } = useGetProductCart(id, productId)
   const foo = (num: number) => {
@@ -33,7 +32,6 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations 
       }
     }
   }
-
 
   return (
     <>
