@@ -1,11 +1,11 @@
-.wrapper{
+.wrapper {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
-.wrapper:last-child{
+.wrapper:last-child {
   justify-content: flex-end;
 }
 

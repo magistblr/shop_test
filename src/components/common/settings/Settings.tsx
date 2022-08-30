@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
+import { Button } from 'components/custom/button/Button';
 import { Checkbox } from 'components/custom/checkbox/Checkbox';
 import MultiRangeSlider from 'components/custom/multiRangeSlider/MultiRangeSlider';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -46,9 +47,9 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
           />
         </div>
       </div>
-      <button className={s.button} type="button" onClick={() => btnClose()}>
+      <Button callback={() => btnClose()}>
         Применить
-      </button>
-    </div>
+      </Button>
+    </div >
   );
 };
