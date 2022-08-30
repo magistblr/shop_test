@@ -7,7 +7,7 @@ import { randomSortArray } from 'utils/randomSortArray';
 import './Tag.scss';
 import { TagType } from './types';
 
-export const Tag: React.FC<TagType> = React.memo(({ children, id }) => {
+export const Tag: React.FC<TagType> = React.memo(({ children, id, type }) => {
   const [click, setClick] = useState(false)
   const [disable, setDisable] = useState(false)
 
@@ -15,7 +15,7 @@ export const Tag: React.FC<TagType> = React.memo(({ children, id }) => {
 
   const dispatch = useAppDispatch()
 
-  const type = click && (id === idCategory) ? "outlined" : randomSortArray(COLOR_BUTTON)
+  const typeColor = click && (id === idCategory) ? "outlined" : type
 
   const onClickHandler = (id: number) => {
     dispatch(categorySlice.actions.categoriesId(id))
@@ -31,7 +31,7 @@ export const Tag: React.FC<TagType> = React.memo(({ children, id }) => {
 
   return (
     <div className="wrapper">
-      <div className={disable ? `common ${type} disable` : `common ${type}`} onClick={() => onClickHandler(id)}>{children}</div>
+      <div className={disable ? `common ${typeColor} disable` : `common ${typeColor}`} onClick={() => onClickHandler(id)}>{children}</div>
     </div>
   );
 })

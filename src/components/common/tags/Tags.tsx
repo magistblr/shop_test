@@ -6,6 +6,8 @@ import './Tags.scss'
 import { useAppSelector, useAppDispatch } from 'hooks/redux'
 import { API } from 'services/apiService'
 import { categorySlice } from 'store/reducers/CategorySlice'
+import { COLOR_BUTTON } from 'utils/constans'
+import { randomSortArray } from 'utils/randomSortArray'
 
 export const Tags: React.FC = () => {
   const categories = useAppSelector(state => state.categoryReducer.categories)
@@ -36,7 +38,11 @@ export const Tags: React.FC = () => {
       {categories &&
         categories.map((category) => (
           <li key={category.id}>
-            <Tag id={category.id} callback={changeId}>
+            <Tag
+              id={category.id}
+              callback={changeId}
+              type={randomSortArray(COLOR_BUTTON)}
+            >
               {category.name}
             </Tag>
           </li>

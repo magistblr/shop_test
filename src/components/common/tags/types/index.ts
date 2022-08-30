@@ -1,7 +1,6 @@
 export type TagType = {
-  active?: boolean
   id: number
-  type?: 'green' | 'blue' | 'yellow' | 'pink' | 'outlined'
+  type: string
   callback: (id: number) => void
   idCategory?: number
 };
