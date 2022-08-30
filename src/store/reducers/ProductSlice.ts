@@ -93,6 +93,22 @@ export const productSlice = createSlice({
       state.error = ''
       state.products.forEach(item => item.id === action.payload[1] ? item.variations.push(...action.payload[0]) : '')
     },
+    variationsAddInCart(
+      state: ProductState,
+      action: PayloadAction,
+    ) {
+      state.products.forEach(item => item.variations.forEach(item => item.inCart))
+    },
+    variationsAddInCartValue(
+      state: ProductState,
+      action: PayloadAction<[boolean, number, number]>,
+    ) {
+      state.products.forEach(item => item.id === action.payload[1]
+        ? item.variations.forEach(item => item.id === action.payload[2]
+          ? item.inCart === action.payload[0]
+          : '')
+        : '')
+    },
     variationsAddFetchValues(
       state: ProductState,
       action: PayloadAction<[IProductVariationsValues, number]>,

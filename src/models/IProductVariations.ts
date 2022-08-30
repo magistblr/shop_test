@@ -3,6 +3,7 @@ export interface IProductVariations {
   price: number
   product_id: number
   stock: number
+  inCart: boolean
   values?: IProductVariationsValues
 }
 

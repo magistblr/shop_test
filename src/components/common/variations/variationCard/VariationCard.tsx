@@ -1,21 +1,18 @@
 import { Button } from 'components/custom/button/Button'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import s from './VariationCard.module.scss'
 import { VariationCardType } from './types'
 import { useFetchVariation } from 'hooks/useVariation/useVariation'
 import { productSlice } from 'store/reducers/ProductSlice'
-import { useGetProductCart } from 'hooks/useGetProductCart/useGetProductCart'
-import { cartSlice } from 'store/reducers/CartSlice'
 
-export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, callback }) => {
+export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, callback, disable }) => {
+  const [count, setCount] = useState<number>(0)
+  const [activeDisable, setActiveDisable] = useState<boolean>(disable)
   const dispatch = useAppDispatch()
-  const id = useAppSelector(state => state.cartReducer.id)
-  const productId = useAppSelector(state => state.productReducer.id)
-  // const { productCart, variation } = useGetProductCart(id, productId)
-  // console.log(productCart);
-  // console.log(variation);
+  //TODO (убрать баг при переключении с главной на корзину и обратно, нельзя добавить товары в корзину)
+  // const products = useAppSelector(state => state.productReducer.products.find(item => item.id === ))
 
   const { packageProduct, wide, color, height, length, size, weight, isSuccess } = useFetchVariation(productVariationId)
   const values = [packageProduct, wide, length, height, weight, size, color]
@@ -26,18 +23,12 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
     }
   }, [productVariationId, isSuccess, variationsProperties])
 
-  // useEffect(() => {
-  // }, [productCart, variation])
+  const btnHandler = (id: number, disable: boolean) => {
+    setActiveDisable(true)
+    callback(id, disable, count)
 
-  //TODO
-  const btnHandler = (id: number) => {
-    //   debugger
-    // dispatch(cartSlice.actions.productVariationsAdd({ id: productCart.id, name: productCart.name, price: variation.price, stock: variation.stock }))
-    dispatch(cartSlice.actions.id(id))
-    setOpenPopUp(false)
-    callback(1)
+    // setOpenPopUp(false)
   }
-
 
   return (
     <>
@@ -54,8 +45,8 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
             )}
           </div>
         </div>
-        <Button outlined callback={() => btnHandler(productVariationId)}>
-          В корзину
+        <Button outlined disabled={activeDisable} callback={() => btnHandler(productVariationId, true)}>
+          {activeDisable ? `Добавлено` : `В корзину`}
         </Button>
       </div>
     </>

@@ -31,7 +31,7 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
     filter: productId || '',
   })
   //fetch variations
-  const { data: variationApi, isSuccess: variationSuccess } =
+  const { data: variationApi, isSuccess: variationSuccess} =
     API.useFetchProductAllVariationsQuery({
       filter: productId,
     })
@@ -41,23 +41,7 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
       dispatch(productSlice.actions.variationsFetchingSuccess([variationApi, productId]))
     }
   }, [variationApi])
-  // const { productCart, variation } = useGetProductCart(id, productIdState)
 
-  // useEffect(() => {
-  //   if (productCart && variation) {
-  //     debugger
-  //     if (productId === productIdState) {
-  //       dispatch(cartSlice.actions.productVariationsAdd(
-  //         {
-  //           id: productCart.id,
-  //           name: productCart.name,
-  //           price: variation.price,
-  //           stock: variation.stock
-  //         }
-  //       ))
-  //     }
-  //   }
-  // }, [productCart, variation])
 
   const { price, newPrice, isSuccess: priceIsSuccess } = useGetPrice(productId)
 

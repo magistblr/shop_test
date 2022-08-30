@@ -14,6 +14,7 @@ export type ProductCart = {
   name: string
   price: number
   stock: number
+  count: number
 }
 
 const initialState: ProductState = {
@@ -39,15 +40,33 @@ export const cartSlice = createSlice({
     },
     productVariationsRemove(
       state: ProductState,
-      action: PayloadAction<[IProductVariations, number]>,
+      action: PayloadAction<number>,
     ) {
-      state.productVariations.filter(item => item.id !== action.payload[1])
+      state.productVariations = state.productVariations.filter(item => item.id !== action.payload)
+      state.products = state.productVariations.length
+      state.totalPrice = state.productVariations.reduce((acc, item) => acc + item.price, 0)
+    },
+    totalPriceCountPlus(
+      state: ProductState,
+      action: PayloadAction<[number, number]>,
+    ) {
+      state.totalPrice = state.totalPrice + action.payload[0]
+      state.productVariations.forEach(item => item.id === action.payload[1] ? item.count = item.count + 1 : '')
+    },
+    totalPriceCountMinus(
+      state: ProductState,
+      action: PayloadAction<[number, number]>,
+    ) {
+      state.totalPrice = state.totalPrice - action.payload[0]
+      state.productVariations.forEach(item => item.id === action.payload[1] ? item.count = item.count - 1 : '')
     },
     allProductsRemove(
       state: ProductState,
       action: PayloadAction,
     ) {
       state.productVariations = []
+      state.products = 0
+      state.totalPrice = 0
     },
     id(
       state: ProductState,

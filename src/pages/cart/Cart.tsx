@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useGetProductCart } from 'hooks/useGetProductCart/useGetProductCart';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { cartSlice } from 'store/reducers/CartSlice';
 import { mathMinusPercent } from 'utils/mathsFunctions';
 
@@ -11,18 +11,17 @@ import { Button } from '../../components/custom/button/Button';
 import s from './Cart.module.scss';
 
 export const Cart: React.FC = () => {
-  const dispatch = useAppDispatch()
+  const cartTotalPrice = useAppSelector(state => state.cartReducer.totalPrice)
   const id = useAppSelector(state => state.cartReducer.id)
   const productId = useAppSelector(state => state.productReducer.id)
-  const cartTotalPrice = useAppSelector(state => state.cartReducer.totalPrice)
   const cartProducts = useAppSelector(state => state.cartReducer.productVariations)
 
-  // const { productCart, variation } = useGetProductCart(id, productId)
-  // useEffect(() => {
-  //   if (productCart && variation) {
-  //     dispatch(cartSlice.actions.productVariationsAdd({ id: productCart.id, name: productCart.name, price: variation.price, stock: variation.stock }))
-  //   }
-  // }, [productCart, variation])
+
+  const dispatch = useAppDispatch()
+
+  const handlerRemoveAllProductsCart = () => {
+    dispatch(cartSlice.actions.allProductsRemove())
+  }
 
   return (
     <>
@@ -30,7 +29,7 @@ export const Cart: React.FC = () => {
         < div className={s.wrapper} >
           <div className={s.header_cart}>
             <h2>Корзина</h2>
-            <div className={s.cart_clear}>Очистить корзину</div>
+            <div className={s.cart_clear} onClick={() => handlerRemoveAllProductsCart()}>Очистить корзину</div>
           </div>
           <div className={s.content_wrapper}>
             <div className={s.content_header}>
@@ -51,7 +50,9 @@ export const Cart: React.FC = () => {
                     key={item.id}
                     price={item.price}
                     stock={item.stock}
-                    name={item.name} />
+                    name={item.name}
+                    id={item.id}
+                  />
                 )
                 }
               </div>
