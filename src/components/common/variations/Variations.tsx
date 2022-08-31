@@ -6,16 +6,14 @@ import { VariationCard } from './variationCard'
 import { API } from 'services/apiService'
 import { cartSlice } from 'store/reducers/CartSlice'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
-import { useGetProductCart } from 'hooks/useGetProductCart/useGetProductCart'
-import { IProductVariations } from 'models/IProductVariations'
-import ProductSlice, { productSlice } from 'store/reducers/ProductSlice'
+import { productSlice } from 'store/reducers/ProductSlice'
+import { getIdProduct } from 'store/selectors/selectors'
 
 export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations }) => {
-  // const [openPopUp, setOpenPopUp] = useState(false)
-  const { data: variationsProperties, isSuccess: variationsPropertiesSuccess, refetch } = API.useFetchProductAllVariationsPropertiesQuery('')
+  const { data: variationsProperties, isSuccess: variationsPropertiesSuccess } = API.useFetchProductAllVariationsPropertiesQuery('')
   const dispatch = useAppDispatch()
-  const productId = useAppSelector(state => state.productReducer.id)
-
+  const productId = useAppSelector(getIdProduct)
+  //TODO (доделать селекторы)
   const product = useAppSelector(state => state.productReducer.products.filter(item => item.id === productId ? item : "")[0])
 
   const addProductToCartCallback = (idVariation: number, inCart: boolean) => {

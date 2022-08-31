@@ -11,29 +11,23 @@ import { API } from 'services/apiService'
 import { Variations } from 'components/common/variations/Variations'
 import { productSlice } from 'store/reducers/ProductSlice'
 import { useGetPrice } from 'hooks/useGetPrice/useGetPrice'
-import { useGetProductCart } from 'hooks/useGetProductCart/useGetProductCart'
-import { cartSlice } from 'store/reducers/CartSlice'
+import { getAllProducts, getIdCartProductVariation } from 'store/selectors/selectors'
 
 export const Card: React.FC<CardType> = React.memo(({ description, productId }) => {
   const [openPopUp, setOpenPopUp] = useState(false)
-  const products = useAppSelector(state => state.productReducer.products)
-  const id = useAppSelector(state => state.cartReducer.id)
+  const products = useAppSelector(getAllProducts)
 
-  const foo = (productId: number) => {
-    dispatch(productSlice.actions.productsId(productId))
-    setOpenPopUp(true)
-  }
-
+  
   const dispatch = useAppDispatch()
   //fetch images
   const { data: imageApi } = API.useFetchSortRangeFilterProductsImageQuery({
     filter: productId || '',
   })
   //fetch variations
-  const { data: variationApi, isSuccess: variationSuccess} =
-    API.useFetchProductAllVariationsQuery({
-      filter: productId,
-    })
+  const { data: variationApi, isSuccess: variationSuccess } =
+  API.useFetchProductAllVariationsQuery({
+    filter: productId,
+  })
   //add variations to store
   useEffect(() => {
     if (variationSuccess) {
@@ -41,6 +35,10 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
     }
   }, [variationApi])
 
+  const btnHandler = (productId: number) => {
+    dispatch(productSlice.actions.productsId(productId))
+    setOpenPopUp(true)
+  }
 
   const { price, newPrice, isSuccess: priceIsSuccess } = useGetPrice(productId)
 
@@ -52,7 +50,7 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
       {openPopUp && (
         <div className={s.wrapper__popup}>
           <Popup setOpenPopup={setOpenPopUp}>
-            {variationSuccess && <Variations setOpenPopUp={setOpenPopUp} variations={variationApi} productId={productId} id={id} />}
+            {variationSuccess && <Variations setOpenPopUp={setOpenPopUp} variations={variationApi}/>}
           </Popup>
         </div>
       )}
@@ -71,7 +69,7 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
               {price && price} ₽<span className={s.content__discount}>-10%</span>
             </div>
           </div>
-          <Button block outlined callback={() => foo(productId)}>
+          <Button block outlined callback={() => btnHandler(productId)}>
             Добавить в корзину
           </Button>
         </div>

@@ -6,13 +6,13 @@ import { Card } from './card/Card'
 import { useAppSelector, useAppDispatch } from 'hooks/redux'
 import { API } from 'services/apiService'
 import { productSlice } from 'store/reducers/ProductSlice'
+import { getIdCategory, getMaxRangeProduct, getMinRangeProduct, getSortProducts } from 'store/selectors/selectors'
 
 export const Cards: React.FC = () => {
-  const products = useAppSelector(state => state.productReducer.products)
-  const minRangeProduct = useAppSelector(state => state.productReducer.minRangeProduct)
-  const maxRangeProduct = useAppSelector(state => state.productReducer.maxRangeProduct)
-  const sortProducts = useAppSelector(state => state.productReducer.sort)
-  const idCategory = useAppSelector(state => state.categoryReducer.id)
+  const minRangeProduct = useAppSelector(getMinRangeProduct)
+  const maxRangeProduct = useAppSelector(getMaxRangeProduct)
+  const sortProducts = useAppSelector(getSortProducts)
+  const idCategory = useAppSelector(getIdCategory)
 
   const dispatch = useAppDispatch()
 
