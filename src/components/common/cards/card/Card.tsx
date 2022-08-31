@@ -18,7 +18,6 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
   const [openPopUp, setOpenPopUp] = useState(false)
   const products = useAppSelector(state => state.productReducer.products)
   const id = useAppSelector(state => state.cartReducer.id)
-  const productIdState = useAppSelector(state => state.productReducer.id)
 
   const foo = (productId: number) => {
     dispatch(productSlice.actions.productsId(productId))

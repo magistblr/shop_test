@@ -12,28 +12,26 @@ import ProductSlice, { productSlice } from 'store/reducers/ProductSlice'
 
 export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations }) => {
   // const [openPopUp, setOpenPopUp] = useState(false)
-
-  const { data: variationsProperties, isSuccess: variationsPropertiesSuccess } = API.useFetchProductAllVariationsPropertiesQuery('')
+  const { data: variationsProperties, isSuccess: variationsPropertiesSuccess, refetch } = API.useFetchProductAllVariationsPropertiesQuery('')
   const dispatch = useAppDispatch()
   const productId = useAppSelector(state => state.productReducer.id)
 
   const product = useAppSelector(state => state.productReducer.products.filter(item => item.id === productId ? item : "")[0])
 
-  // const { productCart, variation } = useGetProductCart(id, productId)
-  const addProductToCartCallback = (idVariation: number, inCart: boolean, count: number) => {
+  const addProductToCartCallback = (idVariation: number, inCart: boolean) => {
     if (product) {
       let variation = product.variations.filter(item => item.id === idVariation ? item : '')[0]
-      console.log(product);
-      console.log(variation);
       dispatch(productSlice.actions.variationsAddInCart())
       dispatch(productSlice.actions.variationsAddInCartValue([inCart, productId, idVariation]))
       dispatch(cartSlice.actions.productVariationsAdd(
         {
-          id: product.id,
+          productId: product.id,
+          id: variation.id,
           name: product.name,
           price: variation.price,
           stock: variation.stock,
-          count: count
+          count: 0,
+          inCart: true
         }
       ))
     }
@@ -50,7 +48,6 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations 
               variationsProperties={variationsProperties}
               productVariationId={item.id}
               callback={addProductToCartCallback}
-              disable={item.inCart}
             />
           )
         }

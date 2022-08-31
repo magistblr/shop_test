@@ -21,6 +21,7 @@ export const Categories: React.FC = () => {
   const onClickPopup = (): void => {
     setOpenPopup(!openPopup)
   }
+  console.log("categories");
 
   // add more products
   const onClickMore = (): void => {

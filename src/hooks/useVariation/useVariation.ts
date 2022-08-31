@@ -1,8 +1,11 @@
+import { IProductVariationsValues } from './../../models/IProductVariations';
 import { IProductVariationPropertyValues } from './../../models/IProductVariationPropertyValues';
 import { API } from 'services/apiService';
 import { useState, useEffect } from 'react';
 
-export const useFetchVariation = (productVariationId: number) => {
+type ValuesType = (string | number | boolean)[]
+
+export const useFetchVariation = (productVariationId: number, fetch: boolean) => {
     const [packageProduct, setPackageProduct] = useState<string>('');
     const [color, setColor] = useState<string>('');
     const [size, setSize] = useState<string>('');
@@ -13,13 +16,20 @@ export const useFetchVariation = (productVariationId: number) => {
     const [sizeId, setSizeId] = useState<number>(0);
     const [colorId, setColorId] = useState<number>(0);
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
+    const [valuesArr, setValuesArr] = useState<ValuesType>([packageProduct, color, height, length, size, weight, wide]);
+    const [valuesObj, setValuesObj] = useState<IProductVariationsValues>({ packageProduct, color, height, length, size, weight, wide });
 
-    const { data: variationsPropertyValues, isSuccess: variationsValuesSuccess } = API.useFetchProductVariationPropertyValuesQuery({
+    const { data: variationsPropertyValues, isSuccess: variationsValuesSuccess, refetch: valuesFetch } = API.useFetchProductVariationPropertyValuesQuery({
         filter: productVariationId
     });
-    const { data: variationListValuesSize, isSuccess: variationListValuesSizeSuccess } = API.useFetchProductVariationListValuesQuery(sizeId);
-    const { data: variationListValuesColor, isSuccess: variationListValuesColorSuccess } = API.useFetchProductVariationListValuesQuery(colorId)
+    const { data: variationListValuesSize, isSuccess: variationListValuesSizeSuccess, refetch: sizeIdRefetch } = API.useFetchProductVariationListValuesQuery(sizeId);
+    const { data: variationListValuesColor, isSuccess: variationListValuesColorSuccess, refetch: colorIdRefetch } = API.useFetchProductVariationListValuesQuery(colorId)
 
+    useEffect(() => {
+        sizeIdRefetch()
+        colorIdRefetch()
+        valuesFetch()
+    }, [fetch])
     useEffect(() => {
         if (variationsValuesSuccess) {
             if (variationsPropertyValues[0].value_string) {
@@ -67,5 +77,10 @@ export const useFetchVariation = (productVariationId: number) => {
         }
     }, [packageProduct, color, size, wide, length, height, weight])
 
-    return { packageProduct, color, height, length, size, weight, wide, isSuccess };
+    useEffect(() => {
+        setValuesArr([packageProduct, color, height, length, size, weight, wide])
+        setValuesObj({ packageProduct, color, height, length, size, weight, wide })
+    }, [isSuccess])
+
+    return { valuesArr, valuesObj, isSuccess };
 }

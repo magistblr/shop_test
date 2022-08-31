@@ -10,11 +10,13 @@ interface ProductState {
 }
 
 export type ProductCart = {
+  productId: number
   id: number
   name: string
   price: number
   stock: number
   count: number
+  inCart: boolean
 }
 
 const initialState: ProductState = {
@@ -73,6 +75,13 @@ export const cartSlice = createSlice({
       action: PayloadAction<number>,
     ) {
       state.id = action.payload
+    },
+    addIncart(
+      state: ProductState,
+      action: PayloadAction<{ id: number, inCart: boolean }>,
+    ) {
+      debugger
+      state.productVariations.forEach(item => item.id === action.payload.id ? item.inCart = action.payload.inCart : '')
     },
   },
 })

@@ -6,28 +6,26 @@ import s from './VariationCard.module.scss'
 import { VariationCardType } from './types'
 import { useFetchVariation } from 'hooks/useVariation/useVariation'
 import { productSlice } from 'store/reducers/ProductSlice'
+import { cartSlice } from 'store/reducers/CartSlice'
 
-export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, callback, disable }) => {
-  const [count, setCount] = useState<number>(0)
-  const [activeDisable, setActiveDisable] = useState<boolean>(disable)
+export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, callback }) => {
   const dispatch = useAppDispatch()
+
   //TODO (убрать баг при переключении с главной на корзину и обратно, нельзя добавить товары в корзину)
-  // const products = useAppSelector(state => state.productReducer.products.find(item => item.id === ))
+  const disable = useAppSelector(state => state.cartReducer.productVariations.map(item => item.id === productVariationId ? item.inCart : false)[0])
+  console.log(disable);
 
-  const { packageProduct, wide, color, height, length, size, weight, isSuccess } = useFetchVariation(productVariationId)
-  const values = [packageProduct, wide, length, height, weight, size, color]
-
+  const { valuesArr, valuesObj, isSuccess } = useFetchVariation(productVariationId, true)
+  //TODO (баг )
   useEffect(() => {
     if (isSuccess) {
-      dispatch(productSlice.actions.variationsAddFetchValues([{ packageProduct, wide, color, height, length, size, weight }, productVariationId]))
+      dispatch(productSlice.actions.variationsAddFetchValues([valuesObj, productVariationId]))
     }
   }, [productVariationId, isSuccess, variationsProperties])
 
   const btnHandler = (id: number, disable: boolean) => {
-    setActiveDisable(true)
-    callback(id, disable, count)
-
-    // setOpenPopUp(false)
+    callback(id, disable)
+    setOpenPopUp(false)
   }
 
   return (
@@ -36,17 +34,17 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
         <div className={s.variations_wrapper}>
           <div className={s.variations_name}>
             {variationsProperties.map(property =>
-              <div>{property.name} </div>
+              <div key={property.id}>{property.name} </div>
             )}
           </div>
           <div className={s.variations_value}>
-            {values.map(item =>
-              <div>{item} </div>
+            {valuesArr.map((value, index) =>
+              <div key={index}>{value} </div>
             )}
           </div>
         </div>
-        <Button outlined disabled={activeDisable} callback={() => btnHandler(productVariationId, true)}>
-          {activeDisable ? `Добавлено` : `В корзину`}
+        <Button outlined disabled={disable} callback={() => btnHandler(productVariationId, true)}>
+          {disable ? `Добавлено` : `В корзину`}
         </Button>
       </div>
     </>
