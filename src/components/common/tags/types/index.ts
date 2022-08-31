@@ -1,3 +1,6 @@
 export type TagType = {
-  type: 'green' | 'blue' | 'yellow' | 'pink' | 'outlined';
+  id: number
+  type: string
+  callback: (id: number) => void
+  idCategory?: number
 };

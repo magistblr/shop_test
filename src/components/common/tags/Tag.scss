@@ -1,9 +1,9 @@
-.wrapper{
+.wrapper {
   display: flex;
   margin: 0 6px 6px 0;
 }
 
-.common{
+.common {
   display: flex;
   justify-content: center;
   font-size: 14px;
@@ -18,20 +18,30 @@
   cursor: pointer;
 }
 
-.blue{
+.blue {
   background-color: #2967FF;
 }
-.green{
-  background-color: #58CF18;;
+
+.green {
+  background-color: #58CF18;
+  ;
 }
-.yellow{
-  background-color: #FFA601;;
+
+.yellow {
+  background-color: #FFA601;
+  ;
 }
-.pink{
+
+.pink {
   background-color: #FF7CB4;
 }
-.outlined{
+
+.outlined {
   border: 1px solid #FF2D87;
   background-color: #ffff;
   color: #2D2D2F;
+}
+
+.disable {
+  pointer-events: none;
 }
