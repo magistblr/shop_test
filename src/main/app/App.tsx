@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-import '../../scss/App.scss';
-import { Footer } from '../footer/Footer';
-import { Header } from '../header/Header';
-import { RightPanel } from '../rightPanel/RightPanel';
-import RoutesList from '../RoutesList';
+import '../../scss/App.scss'
+import { Footer } from '../footer/Footer'
+import { Header } from '../header/Header'
+import { RightPanel } from '../rightPanel/RightPanel'
+import RoutesList from '../RoutesList'
 
-const App: React.FC = () => (
-  <div className="container">
+const App: React.FC = () => {
+  return <div className="container">
     <div className="main__wrapper">
       <div className="header__pages__wrapper">
         <Header />
@@ -17,6 +17,6 @@ const App: React.FC = () => (
     </div>
     <Footer />
   </div>
-);
+}
 
-export default App;
+export default App

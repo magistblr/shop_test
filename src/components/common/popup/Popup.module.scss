@@ -1,10 +1,15 @@
-.wrapper{
-  width: 214px;
-  min-height: 283px;
-  background-color: white;
-  border: 1px solid black;
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  min-width: 200px;
+  min-height: 190px;
   position: absolute;
   z-index: 100;
   left: 50%;
   transform: translateX(-60%);
+  padding: 10px;
+  border-radius: 10px;
+  background: #F0F4FB;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
