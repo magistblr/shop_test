@@ -24,7 +24,7 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
   const { data: imageApi } = API.useFetchSortRangeFilterProductsImageQuery({
     filter: productId || '',
   })
-
+//TODO (баг с выключением кнопки товара)
   const btnHandler = (productId: number) => {
     dispatch(productSlice.actions.variationsAdd([]))
     dispatch(productSlice.actions.productsId(productId))
