@@ -79,8 +79,6 @@ export const productSlice = createSlice({
       state: ProductState,
       action: PayloadAction<[]>,
     ) {
-      state.isLoading = false
-      state.error = ''
       state.products.forEach(item => {
         item.variations = action.payload
       })
@@ -101,13 +99,20 @@ export const productSlice = createSlice({
     },
     variationsAddInCartValue(
       state: ProductState,
-      action: PayloadAction<[boolean, number, number]>,
+      action: PayloadAction<[number, number]>,
     ) {
-      state.products.forEach(item => item.id === action.payload[1]
-        ? item.variations.forEach(item => item.id === action.payload[2]
-          ? item.inCart === action.payload[0]
+      state.products.forEach(item => item.id === action.payload[0] ? item.inCart = true : '')
+      state.products.forEach(item => item.id === action.payload[0]
+        ? item.variations.forEach(item => item.id === action.payload[1]
+          ? item.inCart = true
           : '')
         : '')
+    },
+    productAddInCart(
+      state: ProductState,
+      action: PayloadAction<number>,
+    ) {
+      state.products.forEach(item => item.id === action.payload ? item.inCart = true : '')
     },
     variationsAddFetchValues(
       state: ProductState,

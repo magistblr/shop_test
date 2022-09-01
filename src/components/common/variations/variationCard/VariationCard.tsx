@@ -6,14 +6,12 @@ import s from './VariationCard.module.scss'
 import { VariationCardType } from './types'
 import { useFetchVariation } from 'hooks/useVariation/useVariation'
 import { productSlice } from 'store/reducers/ProductSlice'
-import { cartSlice } from 'store/reducers/CartSlice'
 
-export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, callback }) => {
+export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, callback, inCart, productId }) => {
   const dispatch = useAppDispatch()
-
   //TODO (убрать баг при переключении с главной на корзину и обратно, нельзя добавить товары в корзину)
-  const disable = useAppSelector(state => state.cartReducer.productVariations.map(item => item.id === productVariationId ? item.inCart : false)[0])
-  console.log(disable);
+
+  console.log(productId);
 
   const { valuesArr, valuesObj, isSuccess } = useFetchVariation(productVariationId, true)
   //TODO (баг )
@@ -23,8 +21,8 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
     }
   }, [productVariationId, isSuccess, variationsProperties])
 
-  const btnHandler = (id: number, disable: boolean) => {
-    callback(id, disable)
+  const btnHandler = (id: number) => {
+    callback(id)
     setOpenPopUp(false)
   }
 
@@ -43,8 +41,8 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
             )}
           </div>
         </div>
-        <Button outlined disabled={disable} callback={() => btnHandler(productVariationId, true)}>
-          {disable ? `Добавлено` : `В корзину`}
+        <Button outlined disabled={inCart} callback={() => btnHandler(productVariationId)}>
+          {inCart ? `Добавлено` : `В корзину`}
         </Button>
       </div>
     </>

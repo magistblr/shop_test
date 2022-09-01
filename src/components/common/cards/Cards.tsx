@@ -26,7 +26,6 @@ export const Cards: React.FC = () => {
   useEffect(() => {
     if (product) {
       dispatch(productSlice.actions.productsFetchingSuccess(product))
-      dispatch(productSlice.actions.variationsAdd([]))
     }
   }, [product])
 
@@ -41,6 +40,7 @@ export const Cards: React.FC = () => {
             categoryId={idCategory}
             description={product.description}
             productId={product.id}
+            inCart={product.inCart}
           >
             {product.name}
           </Card>

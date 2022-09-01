@@ -107,12 +107,4 @@ export const API = createApi({
     }),
   }),
 })
-export const {
-  useFetchAllCategoryQuery,
-  useFetchSortRangeCategoriesQuery,
-  useFetchAllProductsQuery,
-  useFetchSortRangeFilterProductsQuery,
-  useFetchSortRangeFilterProductsImageQuery,
-  useFetchProductAllVariationsPropertiesQuery,
-  useFetchProductVariationPropertyQuery
-} = API
+export const { } = API

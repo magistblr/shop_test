@@ -5,5 +5,6 @@ export interface IProduct {
   name: string
   category_id: number
   description: string
+  inCart: boolean
   variations: IProductVariations[]
 }

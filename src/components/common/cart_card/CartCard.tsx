@@ -63,8 +63,8 @@ export const CartCard: React.FC<CartCardType> = ({ name, price, stock, id }) => 
         <p className={s.price}>{mathMinusPercent(priceTotal, 10)} ₽</p>
         <p className={s.old_price}>{priceTotal} ₽</p>
       </div>
-      <div className={s.card_delete} onClick={() => handlerCardCart(id)}>
-        <img className={s.card_delete_img} src={cartDeleteImg} alt="delete" />
+      <div className={s.card_delete}>
+        <img onClick={() => handlerCardCart(id)} className={s.card_delete_img} src={cartDeleteImg} alt="delete" />
       </div>
     </div>
   );

@@ -11,31 +11,22 @@ import { API } from 'services/apiService'
 import { Variations } from 'components/common/variations/Variations'
 import { productSlice } from 'store/reducers/ProductSlice'
 import { useGetPrice } from 'hooks/useGetPrice/useGetPrice'
-import { getAllProducts, getIdCartProductVariation } from 'store/selectors/selectors'
+import { getAllProducts } from 'store/selectors/selectors'
 
 export const Card: React.FC<CardType> = React.memo(({ description, productId }) => {
   const [openPopUp, setOpenPopUp] = useState(false)
   const products = useAppSelector(getAllProducts)
 
-  
+  const productsDisable = useAppSelector(state => state.productReducer.products.find(item => item.id === productId)?.inCart)
+
   const dispatch = useAppDispatch()
   //fetch images
   const { data: imageApi } = API.useFetchSortRangeFilterProductsImageQuery({
     filter: productId || '',
   })
-  //fetch variations
-  const { data: variationApi, isSuccess: variationSuccess } =
-  API.useFetchProductAllVariationsQuery({
-    filter: productId,
-  })
-  //add variations to store
-  useEffect(() => {
-    if (variationSuccess) {
-      dispatch(productSlice.actions.variationsFetchingSuccess([variationApi, productId]))
-    }
-  }, [variationApi])
 
   const btnHandler = (productId: number) => {
+    dispatch(productSlice.actions.variationsAdd([]))
     dispatch(productSlice.actions.productsId(productId))
     setOpenPopUp(true)
   }
@@ -50,7 +41,7 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
       {openPopUp && (
         <div className={s.wrapper__popup}>
           <Popup setOpenPopup={setOpenPopUp}>
-            {variationSuccess && <Variations setOpenPopUp={setOpenPopUp} variations={variationApi}/>}
+            <Variations setOpenPopUp={setOpenPopUp} productId={productId} />
           </Popup>
         </div>
       )}
@@ -69,8 +60,8 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
               {price && price} ₽<span className={s.content__discount}>-10%</span>
             </div>
           </div>
-          <Button block outlined callback={() => btnHandler(productId)}>
-            Добавить в корзину
+          <Button disabled={productsDisable} block outlined callback={() => btnHandler(productId)}>
+            {productsDisable ? `Добавлено` : `Добавить в корзину`}
           </Button>
         </div>
       }

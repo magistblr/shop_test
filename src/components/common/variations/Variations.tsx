@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import s from './Variations.module.scss'
 import { VariationsType } from './types'
@@ -9,18 +9,33 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { productSlice } from 'store/reducers/ProductSlice'
 import { getIdProduct } from 'store/selectors/selectors'
 
-export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations }) => {
+export const Variations: React.FC<VariationsType> = ({ setOpenPopUp }) => {
   const { data: variationsProperties, isSuccess: variationsPropertiesSuccess } = API.useFetchProductAllVariationsPropertiesQuery('')
   const dispatch = useAppDispatch()
   const productId = useAppSelector(getIdProduct)
-  //TODO (доделать селекторы)
-  const product = useAppSelector(state => state.productReducer.products.filter(item => item.id === productId ? item : "")[0])
 
-  const addProductToCartCallback = (idVariation: number, inCart: boolean) => {
+  //fetch variations
+  const { data: variationApi, isSuccess: variationSuccess } =
+  API.useFetchProductAllVariationsQuery({
+    filter: productId,
+  })
+
+    //add variations to store
+    useEffect(() => {
+      if (variationSuccess) {
+        dispatch(productSlice.actions.variationsFetchingSuccess([variationApi, productId]))
+      }
+    }, [variationApi])
+
+  const product = useAppSelector(state => state.productReducer.products.filter(item => item.id === productId ? item : "")[0])
+  console.log(variationsProperties);
+  console.log(product);
+
+  const addProductToCartCallback = (idVariation: number) => {
     if (product) {
       let variation = product.variations.filter(item => item.id === idVariation ? item : '')[0]
       dispatch(productSlice.actions.variationsAddInCart())
-      dispatch(productSlice.actions.variationsAddInCartValue([inCart, productId, idVariation]))
+      dispatch(productSlice.actions.variationsAddInCartValue([productId, idVariation]))
       dispatch(cartSlice.actions.productVariationsAdd(
         {
           productId: product.id,
@@ -38,14 +53,16 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp, variations 
   return (
     <>
       <div className={s.wrapper}>
-        {variationsPropertiesSuccess
-          && variations.map((item) =>
+        {variationsProperties
+          && product.variations.map((item) =>
             <VariationCard
               key={item.id}
               setOpenPopUp={setOpenPopUp}
               variationsProperties={variationsProperties}
               productVariationId={item.id}
               callback={addProductToCartCallback}
+              inCart={item.inCart}
+              productId={productId}
             />
           )
         }

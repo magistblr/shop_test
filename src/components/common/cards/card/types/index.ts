@@ -8,4 +8,5 @@ export type CardType = {
   description: string
   categoryId: number
   productId: number
+  inCart: boolean
 }
