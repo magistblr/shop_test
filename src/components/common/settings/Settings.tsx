@@ -13,6 +13,7 @@ export const Settings: React.FC<SettingsType> = ({ setOpenPopup }) => {
   const [rangeMin, setRangeMin] = useState(0)
   const [rangeMax, setRangeMax] = useState(24)
   const [checked, setChecked] = useState<boolean>(false)
+  console.log("settings");
 
   const dispatch = useAppDispatch();
 

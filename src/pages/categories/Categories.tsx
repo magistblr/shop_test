@@ -33,8 +33,8 @@ export const Categories: React.FC = () => {
         <h3 className={s.categories__title}>Категории товаров</h3>
         {openPopup && (
           <Popup
+            component={<Settings setOpenPopup={setOpenPopup} />}
             setOpenPopup={setOpenPopup}
-            children={<Settings setOpenPopup={setOpenPopup} />}
           />
         )}
         <button

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import s from './Card.module.scss'
 import { CardType } from './types'
 
-import { Popup } from 'components/common/popup'
 import { Button } from 'components/custom/button/Button'
 import Carousel from 'components/custom/carousel/Carousel'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
@@ -12,6 +11,7 @@ import { Variations } from 'components/common/variations/Variations'
 import { productSlice } from 'store/reducers/ProductSlice'
 import { useGetPrice } from 'hooks/useGetPrice/useGetPrice'
 import { getAllProducts } from 'store/selectors/selectors'
+import { Popup } from 'components/common/popup'
 
 export const Card: React.FC<CardType> = React.memo(({ description, productId }) => {
   const [openPopUp, setOpenPopUp] = useState(false)
@@ -24,7 +24,7 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
   const { data: imageApi } = API.useFetchSortRangeFilterProductsImageQuery({
     filter: productId || '',
   })
-//TODO (баг с выключением кнопки товара)
+  //TODO (баг с выключением кнопки товара)
   const btnHandler = (productId: number) => {
     dispatch(productSlice.actions.variationsAdd([]))
     dispatch(productSlice.actions.productsId(productId))
@@ -40,9 +40,7 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
     <>
       {openPopUp && (
         <div className={s.wrapper__popup}>
-          <Popup setOpenPopup={setOpenPopUp}>
-            <Variations setOpenPopUp={setOpenPopUp} productId={productId} />
-          </Popup>
+          <Popup setOpenPopup={setOpenPopUp} component={<Variations setOpenPopUp={setOpenPopUp} productId={productId} />} />
         </div>
       )}
       {products &&

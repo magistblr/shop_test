@@ -8,6 +8,8 @@ import { cartSlice } from 'store/reducers/CartSlice'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { productSlice } from 'store/reducers/ProductSlice'
 import { getIdProduct } from 'store/selectors/selectors'
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistor } from 'store/store'
 
 export const Variations: React.FC<VariationsType> = ({ setOpenPopUp }) => {
   const { data: variationsProperties, isSuccess: variationsPropertiesSuccess } = API.useFetchProductAllVariationsPropertiesQuery('')
@@ -16,16 +18,16 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp }) => {
 
   //fetch variations
   const { data: variationApi, isSuccess: variationSuccess } =
-  API.useFetchProductAllVariationsQuery({
-    filter: productId,
-  })
+    API.useFetchProductAllVariationsQuery({
+      filter: productId,
+    })
 
-    //add variations to store
-    useEffect(() => {
-      if (variationSuccess) {
-        dispatch(productSlice.actions.variationsFetchingSuccess([variationApi, productId]))
-      }
-    }, [variationApi])
+  //add variations to store
+  useEffect(() => {
+    if (variationSuccess) {
+      dispatch(productSlice.actions.variationsFetchingSuccess([variationApi, productId]))
+    }
+  }, [variationApi])
 
   const product = useAppSelector(state => state.productReducer.products.filter(item => item.id === productId ? item : "")[0])
   console.log(variationsProperties);
