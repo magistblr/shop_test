@@ -30,8 +30,6 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp }) => {
   }, [variationApi])
 
   const product = useAppSelector(state => state.productReducer.products.filter(item => item.id === productId ? item : "")[0])
-  console.log(variationsProperties);
-  console.log(product);
 
   const addProductToCartCallback = (idVariation: number) => {
     if (product) {

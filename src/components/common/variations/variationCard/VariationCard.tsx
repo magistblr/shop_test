@@ -11,8 +11,6 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
   const dispatch = useAppDispatch()
   //TODO (убрать баг при переключении с главной на корзину и обратно, нельзя добавить товары в корзину)
 
-  console.log(productId);
-
   const { valuesArr, valuesObj, isSuccess } = useFetchVariation(productVariationId, true)
   //TODO (баг )
   useEffect(() => {

@@ -40,7 +40,7 @@ export const Card: React.FC<CardType> = React.memo(({ description, productId }) 
     <>
       {openPopUp && (
         <div className={s.wrapper__popup}>
-          <Popup setOpenPopup={setOpenPopUp} component={<Variations setOpenPopUp={setOpenPopUp} productId={productId} />} />
+          <Popup openPopup={openPopUp} setOpenPopup={setOpenPopUp} component={<Variations setOpenPopUp={setOpenPopUp} productId={productId} />} />
         </div>
       )}
       {products &&

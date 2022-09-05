@@ -31,12 +31,11 @@ export const Categories: React.FC = () => {
     <div className={s.wrapper}>
       <div className={s.categories__title_settings}>
         <h3 className={s.categories__title}>Категории товаров</h3>
-        {openPopup && (
-          <Popup
-            component={<Settings setOpenPopup={setOpenPopup} />}
-            setOpenPopup={setOpenPopup}
-          />
-        )}
+        <Popup
+          component={<Settings setOpenPopup={setOpenPopup} />}
+          setOpenPopup={setOpenPopup}
+          openPopup={openPopup}
+        />
         <button
           type="button"
           className={s.categories__settings}

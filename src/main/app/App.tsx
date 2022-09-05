@@ -1,3 +1,4 @@
+import { Popup } from 'components/common/popup'
 import React from 'react'
 
 import '../../scss/App.scss'

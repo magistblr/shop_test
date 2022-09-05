@@ -17,7 +17,6 @@ import categoryReducer from './reducers/CategorySlice'
 import productReducer from './reducers/ProductSlice'
 import cartReducer from './reducers/CartSlice'
 
-
 export const rootReducer = combineReducers({
   categoryReducer,
   productReducer,
