@@ -2,9 +2,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { cartSlice } from 'store/reducers/CartSlice';
-import { getCartProducts, getCartTotalPrice, getCartTotalPriceDiscount } from 'store/selectors/selectors';
-import { CURRENT_URL } from 'utils/constans';
-import { mathMinusPercent } from 'utils/mathsFunctions';
+import { getCartProducts, getCartTotalPriceDiscount } from 'store/selectors/selectors';
 
 import cartHeaderImg from '../../assets/img/cart_img.svg';
 import { CartCard } from '../../components/common/cart_card/CartCard';
