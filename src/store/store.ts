@@ -36,7 +36,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const setupStore = () =>
   configureStore({
-    reducer: rootReducer,
+    reducer: persistedReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
