@@ -3,4 +3,6 @@ export type CartCardType = {
     stock: number
     name: string
     id: number
+    count: number
+    totalPrice: number
 };

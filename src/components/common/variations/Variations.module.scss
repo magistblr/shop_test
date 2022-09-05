@@ -1,5 +1,15 @@
-.wrapper {
+.wrapper_inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.wrapper_out {
+  width: 620px;
+  min-height: 1px;
+}
+
+.title {
+  text-align: center;
 }

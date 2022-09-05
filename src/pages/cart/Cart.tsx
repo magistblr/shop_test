@@ -1,7 +1,9 @@
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { useGetProductCart } from 'hooks/useGetProductCart/useGetProductCart';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { cartSlice } from 'store/reducers/CartSlice';
+import { getCartProducts, getCartTotalPrice, getCartTotalPriceDiscount } from 'store/selectors/selectors';
+import { CURRENT_URL } from 'utils/constans';
 import { mathMinusPercent } from 'utils/mathsFunctions';
 
 import cartHeaderImg from '../../assets/img/cart_img.svg';
@@ -11,10 +13,8 @@ import { Button } from '../../components/custom/button/Button';
 import s from './Cart.module.scss';
 
 export const Cart: React.FC = () => {
-  const cartTotalPrice = useAppSelector(state => state.cartReducer.totalPrice)
-  const id = useAppSelector(state => state.cartReducer.id)
-  const productId = useAppSelector(state => state.productReducer.id)
-  const cartProducts = useAppSelector(state => state.cartReducer.productVariations)
+  const cartTotalPriceDiscount = useAppSelector(getCartTotalPriceDiscount)
+  const cartProducts = useAppSelector(getCartProducts)
 
 
   const dispatch = useAppDispatch()
@@ -22,6 +22,7 @@ export const Cart: React.FC = () => {
   const handlerRemoveAllProductsCart = () => {
     dispatch(cartSlice.actions.allProductsRemove())
   }
+
 
   return (
     <>
@@ -37,9 +38,11 @@ export const Cart: React.FC = () => {
                 <h3>Xiaomi</h3>
                 <div className={s.content_price}>
                   <p className={s.price_description}>Стоимость корзины:</p>
-                  <p className={s.price}>{mathMinusPercent(cartTotalPrice, 10)}₽</p>
+                  <p className={s.price}>{cartTotalPriceDiscount} ₽</p>
                 </div>
-                <Button>Оформить</Button>
+                <Link to="/delivery">
+                  <Button>Оформить</Button>
+                </Link>
               </div>
               <img src={cartHeaderImg} alt="cart_header_img" />
             </div>
@@ -52,6 +55,8 @@ export const Cart: React.FC = () => {
                     stock={item.stock}
                     name={item.name}
                     id={item.id}
+                    count={item.count}
+                    totalPrice={item.totalPrice}
                   />
                 )
                 }

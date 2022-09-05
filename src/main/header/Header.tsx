@@ -14,7 +14,7 @@ export const Header: React.FC = () => {
   const countCartState = useAppSelector(state => state.cartReducer.products)
 
   const countCart = countCartState >= 10 ? `10+` : countCartState
-
+  //TODO (сделать поиск видимым только на главной)
   return (
     <div className={s.wrapper}>
       <header className={s.wrapper__inner}>

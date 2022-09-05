@@ -1,1 +1,1 @@
-export const COLOR_BUTTON = ['green' , 'blue' , 'yellow' , 'pink']
+export const COLOR_BUTTON = ['green', 'blue', 'yellow', 'pink']

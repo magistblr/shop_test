@@ -7,4 +7,5 @@ export type VariationCardType = {
   callback: (num: number) => void
   inCart: boolean
   productId: number
+  price: number
 }

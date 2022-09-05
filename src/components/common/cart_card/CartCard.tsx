@@ -9,9 +9,9 @@ import cartCardImg from '../../../assets/img/card_cart.svg';
 import s from './CartCard.module.scss';
 import { CartCardType } from './types';
 
-export const CartCard: React.FC<CartCardType> = ({ name, price, stock, id }) => {
-  const [count, setCount] = useState<number>(0)
-  const [priceTotal, setPriceTotal] = useState<number>(price)
+export const CartCard: React.FC<CartCardType> = ({ name, price, stock, id, count, totalPrice }) => {
+  const [countLocal, setCountLocal] = useState<number>(count)
+  const [priceTotal, setPriceTotal] = useState<number>(totalPrice !== 0 ? totalPrice : price)
   const dispatch = useAppDispatch()
 
   const handlerCardCart = (id: number) => {
@@ -20,15 +20,15 @@ export const CartCard: React.FC<CartCardType> = ({ name, price, stock, id }) => 
 
   const handlerCountPlus = () => {
     if (count < stock) {
-      setCount(() => count + 1)
+      setCountLocal(() => count + 1)
       setPriceTotal(() => priceTotal + price)
       dispatch(cartSlice.actions.totalPriceCountPlus([price, id]))
     }
   }
 
   const handlerCountMinus = () => {
-    if (count !== 0) {
-      setCount(() => count - 1)
+    if (count !== 1) {
+      setCountLocal(() => count - 1)
       setPriceTotal(() => priceTotal - price)
       dispatch(cartSlice.actions.totalPriceCountMinus([price, id]))
     }
@@ -54,7 +54,7 @@ export const CartCard: React.FC<CartCardType> = ({ name, price, stock, id }) => 
         <div className={s.counter_minus_wrapper} onClick={() => handlerCountMinus()}>
           <div className={s.counter_minus} />
         </div>
-        <div className={s.counter_total}>{count}</div>
+        <div className={s.counter_total}>{countLocal}</div>
         <div className={s.counter_plus_wrapper} onClick={() => handlerCountPlus()}>
           <div className={s.counter_plus} />
         </div>
@@ -64,7 +64,7 @@ export const CartCard: React.FC<CartCardType> = ({ name, price, stock, id }) => 
         <p className={s.old_price}>{priceTotal} ₽</p>
       </div>
       <div className={s.card_delete}>
-        <img onClick={() => handlerCardCart(id)} className={s.card_delete_img} src={cartDeleteImg} alt="delete" />
+        <img onClick={() => handlerCardCart(id)} className={s.card_delete_img} src={cartDeleteImg} alt="remove" />
       </div>
     </div>
   );

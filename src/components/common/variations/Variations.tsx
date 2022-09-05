@@ -8,8 +8,6 @@ import { cartSlice } from 'store/reducers/CartSlice'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { productSlice } from 'store/reducers/ProductSlice'
 import { getIdProduct } from 'store/selectors/selectors'
-import { PersistGate } from 'redux-persist/integration/react'
-import { persistor } from 'store/store'
 
 export const Variations: React.FC<VariationsType> = ({ setOpenPopUp }) => {
   const { data: variationsProperties, isSuccess: variationsPropertiesSuccess } = API.useFetchProductAllVariationsPropertiesQuery('')
@@ -43,8 +41,9 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp }) => {
           name: product.name,
           price: variation.price,
           stock: variation.stock,
-          count: 0,
-          inCart: true
+          count: 1,
+          inCart: true,
+          totalPrice: variation.price,
         }
       ))
     }
@@ -52,20 +51,24 @@ export const Variations: React.FC<VariationsType> = ({ setOpenPopUp }) => {
 
   return (
     <>
-      <div className={s.wrapper}>
-        {variationsProperties
-          && product.variations.map((item) =>
-            <VariationCard
-              key={item.id}
-              setOpenPopUp={setOpenPopUp}
-              variationsProperties={variationsProperties}
-              productVariationId={item.id}
-              callback={addProductToCartCallback}
-              inCart={item.inCart}
-              productId={productId}
-            />
-          )
-        }
+      <div className={s.wrapper_out}>
+        <h3 className={s.title}>Выберите вариант</h3>
+        <div className={s.wrapper_inner}>
+          {variationsProperties
+            && product.variations.map((item) =>
+              <VariationCard
+                key={item.id}
+                setOpenPopUp={setOpenPopUp}
+                variationsProperties={variationsProperties}
+                productVariationId={item.id}
+                callback={addProductToCartCallback}
+                inCart={item.inCart}
+                productId={productId}
+                price={item.price}
+              />
+            )
+          }
+        </div>
       </div>
     </>
   )

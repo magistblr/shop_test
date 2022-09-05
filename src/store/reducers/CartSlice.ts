@@ -1,3 +1,4 @@
+import { mathMinusPercent } from './../../utils/mathsFunctions';
 import { IProductVariations, IProductVariationsValues } from './../../models/IProductVariations';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
@@ -6,6 +7,7 @@ interface ProductState {
   productVariations: ProductCart[]
   products: number
   totalPrice: number
+  totalPriceDiscount: number
   id: number
 }
 
@@ -17,13 +19,15 @@ export type ProductCart = {
   stock: number
   count: number
   inCart: boolean
+  totalPrice: number
 }
 
 const initialState: ProductState = {
   productVariations: [],
   products: 0,
   totalPrice: 0,
-  id: 0
+  id: 0,
+  totalPriceDiscount: 0
 }
 
 //TODO
@@ -38,6 +42,7 @@ export const cartSlice = createSlice({
       state.productVariations.push(action.payload)
       state.products = state.productVariations.length
       state.totalPrice = state.productVariations.reduce((acc, item) => acc + item.price, 0)
+      state.totalPriceDiscount = mathMinusPercent(state.totalPrice, 10)
       state.id = 0
     },
     productVariationsRemove(
@@ -47,6 +52,7 @@ export const cartSlice = createSlice({
       state.productVariations = state.productVariations.filter(item => item.id !== action.payload)
       state.products = state.productVariations.length
       state.totalPrice = state.productVariations.reduce((acc, item) => acc + item.price, 0)
+      state.totalPriceDiscount = mathMinusPercent(state.totalPrice, 10)
     },
     totalPriceCountPlus(
       state: ProductState,
@@ -54,6 +60,8 @@ export const cartSlice = createSlice({
     ) {
       state.totalPrice = state.totalPrice + action.payload[0]
       state.productVariations.forEach(item => item.id === action.payload[1] ? item.count = item.count + 1 : '')
+      state.productVariations.forEach(item => item.id === action.payload[1] ? item.totalPrice = item.totalPrice + action.payload[0] : '')
+      state.totalPriceDiscount = mathMinusPercent(state.totalPrice, 10)
     },
     totalPriceCountMinus(
       state: ProductState,
@@ -61,6 +69,8 @@ export const cartSlice = createSlice({
     ) {
       state.totalPrice = state.totalPrice - action.payload[0]
       state.productVariations.forEach(item => item.id === action.payload[1] ? item.count = item.count - 1 : '')
+      state.productVariations.forEach(item => item.id === action.payload[1] ? item.totalPrice = item.totalPrice - action.payload[0] : '')
+      state.totalPriceDiscount = mathMinusPercent(state.totalPrice, 10)
     },
     allProductsRemove(
       state: ProductState,
@@ -80,8 +90,8 @@ export const cartSlice = createSlice({
       state: ProductState,
       action: PayloadAction<{ id: number, inCart: boolean }>,
     ) {
-      debugger
       state.productVariations.forEach(item => item.id === action.payload.id ? item.inCart = action.payload.inCart : '')
+      state.totalPriceDiscount = mathMinusPercent(state.totalPrice, 10)
     },
   },
 })
