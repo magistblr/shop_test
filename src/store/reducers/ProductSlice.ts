@@ -93,7 +93,6 @@ export const productSlice = createSlice({
     },
     variationsAddInCart(
       state: ProductState,
-      action: PayloadAction,
     ) {
       state.products.forEach(item => item.variations.forEach(item => item.inCart))
     },

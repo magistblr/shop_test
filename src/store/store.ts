@@ -28,6 +28,8 @@ export const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: [API.reducerPath],
+  whitelist: ['cartReducer']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

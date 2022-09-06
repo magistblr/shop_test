@@ -1,14 +1,20 @@
+import { Popup } from 'components/common/popup';
 import { useAppSelector } from 'hooks/redux';
-import React from 'react';
-import { getCartTotalPrice, getCartTotalPriceDiscount } from 'store/selectors/selectors';
-
-import imgGeo from '../../assets/icon/geo_delivery.svg';
+import React, { useState } from 'react';
+import { Calendar } from 'react-calendar';
+import { getCartTotalPriceDiscount } from 'store/selectors/selectors';
 import { Button } from '../../components/custom/button/Button';
 
+import imgGeo from '../../assets/icon/geo_delivery.svg';
+
+import 'react-calendar/dist/Calendar.css';
 import s from './Delivery.module.scss';
 import { InputType } from './types';
+import { Time } from 'components/custom/time/Time';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form/dist/controller';
 
-const Input: React.FC<InputType> = ({ text, title, img }) => (
+const Input: React.FC<InputType> = ({ text, title, img, }) => (
   <div className={s.input_wrapper}>
     <h4>{title}</h4>
     <div className={s.input}>
@@ -18,19 +24,46 @@ const Input: React.FC<InputType> = ({ text, title, img }) => (
   </div>
 );
 
+type InputsType = {
+  name: string,
+  phone: string,
+};
+
 export const Delivery: React.FC = () => {
+  const [openPopUpCalendar, setOpenPopUpCalendar] = useState(false);
+  const [openPopUpTime, setOpenPopUpTime] = useState(false);
+
+  const [valueCalendar, onChangeCalendar] = useState(new Date());
+  const [valueTime, setTime] = useState('9:00-15:00');
+
   const cartTotalPriceDiscount = useAppSelector(getCartTotalPriceDiscount)
 
+
+  const { register, handleSubmit, control, watch, formState: { errors } } = useForm<InputsType>();
+  const onSubmit: SubmitHandler<InputsType> = data => console.log(data);
+  //TODO (доделать форму)
   return (
     <div className={s.wrapper}>
       <h3>Доставка</h3>
       <div className={s.delivery_content}>
         <div className={s.deliveryData}>
-          <form action="">
+          <form action="" onSubmit={handleSubmit(onSubmit)}>
             <div className={s.delivery_dateDelivery_wrapper}>
               <h4>Когда доставить?</h4>
-              <span className={s.delivery_dateDelivery}>Выберите дату</span>
-              <span className={s.delivery_dateDelivery}>Выберите время</span>
+              <div className={s.delivery_dateDelivery}>Выберите дату:</div>
+              <div className={s.delivery_dateDelivery} onClick={() => setOpenPopUpCalendar(true)}>{valueCalendar.toLocaleDateString()}</div>
+              <div className={s.delivery_dateDelivery} >Выберите время:</div>
+              <div className={s.delivery_dateDelivery} onClick={() => setOpenPopUpTime(true)}>{valueTime}</div>
+              <Popup
+                openPopup={openPopUpCalendar}
+                setOpenPopup={setOpenPopUpCalendar}
+                component={<Calendar onClickDay={() => setOpenPopUpCalendar(false)} minDate={new Date()} locale='ru-RU' onChange={onChangeCalendar} value={valueCalendar} />}
+              />
+              <Popup
+                openPopup={openPopUpTime}
+                setOpenPopup={setOpenPopUpTime}
+                component={<Time setTime={setTime} setOpenPopUpTime={setOpenPopUpTime} />}
+              />
             </div>
             <div className={s.delivery_addressDelivery_wrapper}>
               <div className={s.delivery_input_geo}>
@@ -41,8 +74,23 @@ export const Delivery: React.FC = () => {
                 />
               </div>
             </div>
-            <Input title="Имя" img="" />
-            <Input title="Телефон" img="" />
+            <Controller
+              name="name"
+              control={control}
+              defaultValue="Имя"
+              rules={{ required: true }}
+              render={({ field }) => <Input {...field} />}
+            />
+            <Controller
+              name="phone"
+              control={control}
+              defaultValue="Телефон"
+              rules={{ required: true }}
+              render={({ field }) => <Input {...field} />}
+            />
+            {/* <Input {...register("phone")} title="Телефон" img="" /> */}
+            {/* <input {...register("name")} /> */}
+            {/* <input type="submit" /> */}
           </form>
         </div>
         <div className={s.makeOrder_wrapper}>
@@ -63,7 +111,7 @@ export const Delivery: React.FC = () => {
           <Button block>Сделать заказ</Button>
         </div>
       </div>
-    </div>
+    </div >
   );
 
 }

@@ -1,5 +1,5 @@
 export type InputType = {
-  title: string;
-  img: string;
+  title?: string;
+  img?: string;
   text?: string;
 };

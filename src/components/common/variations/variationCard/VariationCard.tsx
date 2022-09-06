@@ -6,6 +6,7 @@ import s from './VariationCard.module.scss'
 import { VariationCardType } from './types'
 import { useFetchVariation } from 'hooks/useVariation/useVariation'
 import { productSlice } from 'store/reducers/ProductSlice'
+import { mathMinusPercent } from 'utils/mathsFunctions'
 
 export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, variationsProperties, productVariationId, callback, inCart, price }) => {
   const dispatch = useAppDispatch()
@@ -40,7 +41,7 @@ export const VariationCard: React.FC<VariationCardType> = ({ setOpenPopUp, varia
         </div>
         <div className={s.price_wrapper}>
           <p className={s.variations_name}>Цена: </p>
-          <p className={s.variations_value}>{price} ₽</p>
+          <p className={s.variations_value}>{mathMinusPercent(price, 10)} ₽</p>
         </div>
         <Button outlined disabled={inCart} callback={() => btnHandler(productVariationId)}>
           {inCart ? `Добавлено` : `В корзину`}
