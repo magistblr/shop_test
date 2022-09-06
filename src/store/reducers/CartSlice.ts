@@ -30,7 +30,6 @@ const initialState: ProductState = {
   totalPriceDiscount: 0
 }
 
-//TODO
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
