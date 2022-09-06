@@ -74,7 +74,7 @@ export const Delivery: React.FC = () => {
                 />
               </div>
             </div>
-            <Controller
+            {/* <Controller
               name="name"
               control={control}
               defaultValue="Имя"
@@ -87,7 +87,7 @@ export const Delivery: React.FC = () => {
               defaultValue="Телефон"
               rules={{ required: true }}
               render={({ field }) => <Input {...field} />}
-            />
+            /> */}
             {/* <Input {...register("phone")} title="Телефон" img="" /> */}
             {/* <input {...register("name")} /> */}
             {/* <input type="submit" /> */}
