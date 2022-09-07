@@ -42,11 +42,7 @@ export const CartCard: React.FC<CartCardType> = ({ name, price, stock, id, count
         <div className={s.card_promotion}>
           <div className={s.card_promotion_sold_time}>
             <div className={s.card_promotion_sold}>{stock}</div>
-            за 12:48:35
-          </div>
-          <div className={s.card_promotion_sold_all}>
-            <p className={s.sold_all_text}>Куплено: </p>
-            <p className={s.sold_all}> 150 шт.</p>
+            <p className={s.sold_all_text}>На складе</p>
           </div>
         </div>
       </div>

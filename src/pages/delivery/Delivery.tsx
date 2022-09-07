@@ -14,7 +14,7 @@ import { Time } from 'components/custom/time/Time';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form/dist/controller';
 
-const Input: React.FC<InputType> = ({ text, title, img, }) => (
+const Input: React.FC<InputType> = ({ text, title, img, props }) => (
   <div className={s.input_wrapper}>
     <h4>{title}</h4>
     <div className={s.input}>
@@ -74,12 +74,12 @@ export const Delivery: React.FC = () => {
                 />
               </div>
             </div>
-            {/* <Controller
+            <Controller
               name="name"
               control={control}
               defaultValue="Имя"
               rules={{ required: true }}
-              render={({ field }) => <Input {...field} />}
+              render={({ field }) => <Input  {...field} />}
             />
             <Controller
               name="phone"
@@ -87,7 +87,7 @@ export const Delivery: React.FC = () => {
               defaultValue="Телефон"
               rules={{ required: true }}
               render={({ field }) => <Input {...field} />}
-            /> */}
+            />
             {/* <Input {...register("phone")} title="Телефон" img="" /> */}
             {/* <input {...register("name")} /> */}
             {/* <input type="submit" /> */}

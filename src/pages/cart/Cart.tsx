@@ -21,7 +21,6 @@ export const Cart: React.FC = () => {
     dispatch(cartSlice.actions.allProductsRemove())
   }
 
-
   return (
     <>
       {cartProducts.length !== 0 ?
@@ -33,9 +32,8 @@ export const Cart: React.FC = () => {
           <div className={s.content_wrapper}>
             <div className={s.content_header}>
               <div className={s.header}>
-                <h3>Xiaomi</h3>
                 <div className={s.content_price}>
-                  <p className={s.price_description}>Стоимость корзины:</p>
+                  <p className={s.price_description}>Общая стоимость:</p>
                   <p className={s.price}>{cartTotalPriceDiscount} ₽</p>
                 </div>
                 <Link to="/delivery">
