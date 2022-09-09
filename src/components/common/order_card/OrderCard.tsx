@@ -21,8 +21,8 @@ export const OrderCard: React.FC<OrderCardType> = () => (
       <div className={s.order_wrapper}>
         <img className={s.order_img} src={orderImg} alt="order_logo" />
         <div className={s.order_name_wrapper}>
-          <h4>Xiaomi</h4>
-          <div className={s.order_data}>21.12.2020</div>
+          <h4>Заказ от</h4>
+          <div className={s.order_data}>{new Date().toLocaleDateString()}</div>
         </div>
         <div className={s.order_more}>Подробнее</div>
       </div>
@@ -30,7 +30,7 @@ export const OrderCard: React.FC<OrderCardType> = () => (
     </div>
     <div className={s.content}>
       <div className={s.content_status}>
-        <OrderItem title="Статус заказа" description="Оплачен/Завершён" />
+        <OrderItem title="Статус заказа" description="Создан" />
         <div className={s.status_wrapper}>
           <OrderItem title="Номер заказа" decorator="2" description="#664-333" />
           <div className={s.status_pack_img}>

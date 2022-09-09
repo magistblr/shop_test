@@ -5,7 +5,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 /* eslint-disable no-param-reassign */
 export interface ProductState {
   productVariations: ProductCart[]
-  products: number
+  productsCount: number
   totalPrice: number
   totalPriceDiscount: number
   id: number
@@ -24,7 +24,7 @@ export type ProductCart = {
 
 const initialState: ProductState = {
   productVariations: [],
-  products: 0,
+  productsCount: 0,
   totalPrice: 0,
   id: 0,
   totalPriceDiscount: 0
@@ -39,7 +39,7 @@ export const cartSlice = createSlice({
       action: PayloadAction<ProductCart>,
     ) {
       state.productVariations.push(action.payload)
-      state.products = state.productVariations.length
+      state.productsCount = state.productVariations.length
       state.totalPrice = state.productVariations.reduce((acc, item) => acc + item.price, 0)
       state.totalPriceDiscount = mathMinusPercent(state.totalPrice, 10)
       state.id = 0
@@ -49,7 +49,7 @@ export const cartSlice = createSlice({
       action: PayloadAction<number>,
     ) {
       state.productVariations = state.productVariations.filter(item => item.id !== action.payload)
-      state.products = state.productVariations.length
+      state.productsCount = state.productVariations.length
       state.totalPrice = state.productVariations.reduce((acc, item) => acc + item.price, 0)
       state.totalPriceDiscount = mathMinusPercent(state.totalPrice, 10)
     },
@@ -76,7 +76,7 @@ export const cartSlice = createSlice({
       action: PayloadAction,
     ) {
       state.productVariations = []
-      state.products = 0
+      state.productsCount = 0
       state.totalPrice = 0
     },
     id(

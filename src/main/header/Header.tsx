@@ -2,6 +2,7 @@ import { useAppSelector } from 'hooks/redux';
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import { getProductsCount } from 'store/selectors/selectors';
 
 import basket from '../../assets/icon/basket.svg';
 import geoIcon from '../../assets/icon/geo.svg';
@@ -11,7 +12,7 @@ import ava from '../../assets/img/ava.png';
 import s from './Header.module.scss';
 
 export const Header: React.FC = () => {
-  const countCartState = useAppSelector(state => state.cartReducer.products)
+  const countCartState = useAppSelector(getProductsCount)
 
   const countCart = countCartState >= 10 ? `10+` : countCartState
   //TODO (сделать поиск видимым только на главной)

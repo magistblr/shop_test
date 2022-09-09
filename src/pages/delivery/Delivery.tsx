@@ -1,14 +1,23 @@
 import { Popup } from 'components/common/popup';
-import { useAppSelector } from 'hooks/redux';
-import React, { useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import React, { useEffect, useState } from 'react';
 import { Calendar } from 'react-calendar';
-import { getCartTotalPriceDiscount } from 'store/selectors/selectors';
+import { getCartTotalPriceDiscount, getProductsCount } from 'store/selectors/selectors';
 import { Button } from '../../components/custom/button/Button';
 
 import 'react-calendar/dist/Calendar.css';
 import s from './Delivery.module.scss';
 import { Time } from 'components/custom/time/Time';
 import { useForm, FormProvider } from 'react-hook-form';
+import { orderSlice, OrderType } from 'store/reducers/OrderSlice';
+import { useGetOrders } from 'hooks/useGetOrder/useGetOrder';
+import { v1 } from 'uuid';
+
+export interface IFormInputs {
+  name: string
+  address: string
+  phone: number
+}
 
 export const Delivery: React.FC = () => {
   const [openPopUpCalendar, setOpenPopUpCalendar] = useState(false);
@@ -18,22 +27,54 @@ export const Delivery: React.FC = () => {
   const [valueTime, setTime] = useState('9:00-15:00');
 
   const cartTotalPriceDiscount = useAppSelector(getCartTotalPriceDiscount)
+  const dispatch = useAppDispatch()
 
-  interface IFormInputs {
-    name: string
-    address: string
-    phone: string
-  }
 
   const [formData, setFormValue] = useState<IFormInputs>()
 
 
-  const { register, handleSubmit, watch, formState: { errors }, } = useForm<IFormInputs>();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<IFormInputs>();
   const methods = useForm<IFormInputs>();
 
   const onSubmit = (data: IFormInputs) => {
     setFormValue(data)
   };
+  //TODO (сделать добавление заказов)
+  // const arr = {
+  //   name: "dwd",
+  //   address: "dwda",
+  //   phone: 32131
+  // }
+
+
+
+  const [order, setOrder] = useState<OrderType>();
+  const totalPriceDiscount = useAppSelector(getCartTotalPriceDiscount)
+  const countCartState = useAppSelector(getProductsCount)
+
+  //TODO (баг постоянного рендера изза useEffect)
+  useEffect(() => {
+    setOrder(
+      order = {
+        phone: formData?.phone,
+        address: formData?.address,
+        nameUser: formData?.name,
+        date: new Date().toDateString(),
+        numberOrders: countCartState,
+        totalprice: totalPriceDiscount,
+        id: v1()
+      }
+    )
+  }), [countCartState];
+
+
+  // const { order } = useGetOrders()
+  console.log(order);
+
+  const handlerMakeOrder = () => {
+    // dispatch(orderSlice.actions.ordersAdd(order))
+  }
+
   //TODO (перенести форму в отдельный компонент)
   return (
     <div className={s.wrapper}>
@@ -112,7 +153,7 @@ export const Delivery: React.FC = () => {
               <div className={s.item_total_last}>{cartTotalPriceDiscount + 200} ₽</div>
             </div>
           </div>
-          <Button disabled={!formData} block>Сделать заказ</Button>
+          <Button callback={handlerMakeOrder} disabled={!formData} block>Сделать заказ</Button>
         </div>
       </div>
     </div >
