@@ -25,7 +25,7 @@ export const Delivery: React.FC = () => {
     phone: string
   }
 
-  const [formValue, setFormValue] = useState<IFormInputs>()
+  const [formData, setFormValue] = useState<IFormInputs>()
 
 
   const { register, handleSubmit, watch, formState: { errors }, } = useForm<IFormInputs>();
@@ -112,7 +112,7 @@ export const Delivery: React.FC = () => {
               <div className={s.item_total_last}>{cartTotalPriceDiscount + 200} ₽</div>
             </div>
           </div>
-          <Button disabled={!formValue} block>Сделать заказ</Button>
+          <Button disabled={!formData} block>Сделать заказ</Button>
         </div>
       </div>
     </div >

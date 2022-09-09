@@ -1,5 +1,5 @@
 import { useAppDispatch } from 'hooks/redux';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { cartSlice } from 'store/reducers/CartSlice';
 import { mathMinusPercent } from 'utils/mathsFunctions';
 
