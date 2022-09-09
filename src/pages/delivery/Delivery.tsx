@@ -1,51 +1,14 @@
 import { Popup } from 'components/common/popup';
 import { useAppSelector } from 'hooks/redux';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Calendar } from 'react-calendar';
 import { getCartTotalPriceDiscount } from 'store/selectors/selectors';
 import { Button } from '../../components/custom/button/Button';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-import imgGeo from '../../assets/icon/geo_delivery.svg';
 
 import 'react-calendar/dist/Calendar.css';
 import s from './Delivery.module.scss';
-import { InputType } from './types';
 import { Time } from 'components/custom/time/Time';
-import { SubmitHandler, useController, UseControllerProps, useForm, Controller, FormProvider } from 'react-hook-form';
-
-
-type RefReturn =
-  | string
-  | ((instance: HTMLInputElement | null) => void)
-  | React.RefObject<HTMLInputElement>
-  | null
-  | undefined;
-
-type InputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> & {
-  label: string;
-  register: ({ required }: { required?: boolean }) => RefReturn;
-};
-
-interface IInputProps {
-  label: string;
-}
-
-const Input: React.FC<InputProps> = ({ label, register, required }) => {
-
-
-  return (
-    <div className={s.input_wrapper}>
-      <div className={s.input}>
-        <label>{label}</label>
-        <input className={style} name={label} ref={register({ required })} />
-      </div>
-    </div>
-  );
-}
+import { useForm, FormProvider } from 'react-hook-form';
 
 export const Delivery: React.FC = () => {
   const [openPopUpCalendar, setOpenPopUpCalendar] = useState(false);
@@ -56,28 +19,22 @@ export const Delivery: React.FC = () => {
 
   const cartTotalPriceDiscount = useAppSelector(getCartTotalPriceDiscount)
 
-  const schema = yup.object({
-    name: yup.string().required(),
-    phone: yup.number().required()
-  });
-
   interface IFormInputs {
     name: string
     address: string
     phone: string
   }
 
+  const [formValue, setFormValue] = useState<IFormInputs>()
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<IFormInputs>();
+
+  const { register, handleSubmit, watch, formState: { errors }, } = useForm<IFormInputs>();
   const methods = useForm<IFormInputs>();
 
   const onSubmit = (data: IFormInputs) => {
-    console.log(data)
+    setFormValue(data)
   };
 
-  const style = required ? `${s.input_input} ${s.input_required}` : `${s.input_input}`
-
-  //TODO (доделать форму)
   return (
     <div className={s.wrapper}>
       <h3>Доставка</h3>
@@ -107,25 +64,36 @@ export const Delivery: React.FC = () => {
               <h4>Адрес</h4>
               <div className={s.input_wrapper}>
                 <div className={s.input}>
-                  <input className={style} {...register("address")} />
+                  <input className={errors.address?.message ? `${s.input_input} ${s.input_required}` : `${s.input_input}`}  {...register("address", { required: "Обязательное поле!" })} />
                 </div>
               </div>
-              {errors.address && <span>This field is required</span>}
+              {errors.address && <div className={s.required_message}>{errors.address.message}</div>}
               <h4>Имя</h4>
               <div className={s.input_wrapper}>
                 <div className={s.input}>
-                  <input {...register("name")} />
+                  <input className={errors.name?.message ? `${s.input_input} ${s.input_required}` : `${s.input_input}`} {...register("name", { required: "Обязательное поле!" })} />
                 </div>
               </div>
-              {errors.name && <span>This field is required</span>}
+              {errors.name && <div className={s.required_message}>{errors.name.message}</div>}
               <h4>Телефон</h4>
               <div className={s.input_wrapper}>
                 <div className={s.input}>
-                  <input {...register("phone")} />
+                  <span>+7</span>
+                  <input className={errors.phone?.message ? `${s.input_input} ${s.input_required}` : `${s.input_input}`}
+                    {...register("phone", {
+                      required: "Обязательное поле!",
+                      pattern: { value: /^(([0-9]){10})$/i, message: "Введите номер в формате 9998887766" }
+                    })}
+                    type='number'
+                    placeholder="9998887766"
+                    onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
+                  />
                 </div>
               </div>
-              {errors.phone && <span>This field is required</span>}
-              <input type="submit" />
+              {errors.phone && <div className={s.required_message}>{errors.phone.message}</div>}
+              <div className={s.submit_wrapper} >
+                <input className={s.submit} type="submit" value="Сохранить" />
+              </div>
             </form>
           </FormProvider>
         </div>
@@ -144,7 +112,7 @@ export const Delivery: React.FC = () => {
               <div className={s.item_total_last}>{cartTotalPriceDiscount + 200} ₽</div>
             </div>
           </div>
-          <Button block>Сделать заказ</Button>
+          <Button disabled={!formValue} block>Сделать заказ</Button>
         </div>
       </div>
     </div >

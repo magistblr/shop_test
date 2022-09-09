@@ -80,6 +80,51 @@ h4 {
   border-radius: 20px;
   padding: 20px;
   margin-right: 10px;
+
+  .required_message {
+    margin-top: 5px;
+    color: #dc3545;
+    text-align: center;
+  }
+
+  .submit_wrapper {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+
+    .submit {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      min-width: 194px;
+      cursor: pointer;
+      border-radius: 51px;
+      transition: 0.2s;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      box-sizing: content-box;
+      background-color: #2967FF;
+      border: 1px solid #2967FF;
+
+    }
+
+    .submit:disabled {
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 0, 0, 0);
+      color: rgba(0, 0, 0, 0.5);
+      cursor: auto;
+      opacity: 1;
+    }
+
+    .submit:hover {
+      transition: 0.2s;
+      background-color: rgba(41, 103, 255, 0.8);
+    }
+
+  }
+
 }
 
 .input_wrapper {
@@ -105,6 +150,16 @@ h4 {
       border-radius: 45px;
       border: 1px solid #F0F4FB;
       padding: 10px;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
     }
 
     .input_required {
