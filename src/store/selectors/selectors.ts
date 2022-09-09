@@ -1,4 +1,3 @@
-
 export const getAllProducts = (state: any) => state.productReducer.products
 
 export const getMinRangeProduct = (state: any) => state.productReducer.minRangeProduct

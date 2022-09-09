@@ -3,7 +3,7 @@ import { IProductVariations, IProductVariationsValues } from './../../models/IPr
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 /* eslint-disable no-param-reassign */
-interface ProductState {
+export interface ProductState {
   productVariations: ProductCart[]
   products: number
   totalPrice: number

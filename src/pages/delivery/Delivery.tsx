@@ -34,7 +34,7 @@ export const Delivery: React.FC = () => {
   const onSubmit = (data: IFormInputs) => {
     setFormValue(data)
   };
-
+  //TODO (перенести форму в отдельный компонент)
   return (
     <div className={s.wrapper}>
       <h3>Доставка</h3>
@@ -103,7 +103,7 @@ export const Delivery: React.FC = () => {
               <div className={s.item_descr}>Стоимость товаров: </div>
               <div className={s.item_total}>{cartTotalPriceDiscount} ₽</div>
             </div>
-            <div className={s.makeOrder_item} data-makeOrder-item2>
+            <div className={s.makeOrder_item} data-make-order-item2>
               <div className={s.item_descr}>Стоимость доставки: </div>
               <div className={s.item_total}>200 ₽</div>
             </div>

@@ -1,3 +1,4 @@
+import { CartCardType } from 'components/common/cart_card/types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -44,7 +45,7 @@ export const Cart: React.FC = () => {
             </div>
             <div className={s.cart_cards_wrapper}>
               <div className={s.cart_cards}>
-                {cartProducts && cartProducts.map(item =>
+                {cartProducts && cartProducts.map((item: CartCardType) =>
                   <CartCard
                     key={item.id}
                     price={item.price}

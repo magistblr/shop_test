@@ -35,7 +35,7 @@ export const CartCard: React.FC<CartCardType> = ({ name, price, stock, id, count
   }
 
   return (
-    <div className={s.wrapper} data-cartCardItem>
+    <div className={s.wrapper} data-cart-card-item>
       <img className={s.card_img} src={cartCardImg} alt="cartCard" />
       <div className={s.card_title_wrapper}>
         <div className={s.card_title}>{name}</div>
