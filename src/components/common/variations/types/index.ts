@@ -1,0 +1,7 @@
+import { IProductVariations } from './../../../../models/IProductVariations';
+import { Dispatch, SetStateAction } from "react"
+
+export type VariationsType = {
+    setOpenPopUp: Dispatch<SetStateAction<boolean>>
+    productId: number
+}

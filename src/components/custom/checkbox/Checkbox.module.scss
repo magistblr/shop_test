@@ -1,0 +1,53 @@
+.checkbox {
+	display: flex;
+	margin: 0 0 10px 0;
+	line-height: 22px;
+
+}
+
+.checkbox {
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	margin: 0 5px 0 15px;
+	padding: 0;
+	vertical-align: top;
+	outline: none;
+	cursor: pointer;
+}
+
+// /* Checked */
+// .checkbox:checked {
+// 	background-image: url(https://snipp.ru/uploads/contents/checkbox-2.png);
+// }
+
+/* Focus */
+.focused {
+	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+}
+
+/* Hover */
+.checkbox:hover {
+	filter: brightness(110%);
+}
+
+/* Active */
+.checkbox:active {
+	filter: brightness(80%);
+}
+
+/* Disabled */
+.checkbox:disabled {
+	color: #666;
+	cursor: default;
+}
+
+.checkbox:disabled {
+	filter: grayscale(100%);
+	opacity: 0.6;
+}
+
+
+.spanClassName {
+	cursor: pointer;
+}

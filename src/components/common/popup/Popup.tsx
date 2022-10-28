@@ -1,34 +1,16 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-import React from 'react';
+import React from 'react'
 
-import s from './Popup.module.scss';
-import { PopupType } from './types';
+import s from './Popup.module.scss'
+import { PopupType } from './types'
 
-export const Popup: React.FC<PopupType> = ({ setOpenPopup }) => {
-  const sortRef = React.useRef<HTMLDivElement>(null);
-
-  const handleOutsideClick = (event: any): void => {
-    const { path } = event;
-    if (!path.includes(sortRef.current)) {
-      setOpenPopup(false);
-    }
-  };
-
-  React.useEffect(() => {
-    window.addEventListener('click', handleOutsideClick);
-    return () => window.removeEventListener('click', handleOutsideClick);
-  }, []);
+export const Popup: React.FC<PopupType> = ({ setOpenPopup, component, openPopup }) => {
+  const styleActive = `${s.wrapper_output} ${s.active}`
 
   return (
-    <div className={s.wrapper} ref={sortRef}>
-      <div>
-        Сортировать по алфавиту
-        <input type="checkbox" />
+    <div className={openPopup ? styleActive : s.wrapper_output} onClick={() => setOpenPopup(false)}>
+      <div className={s.wrapper} onClick={(e) => e.stopPropagation()}>
+        {component}
       </div>
-      Выберите категории
-      <button type="button" onClick={() => setOpenPopup(false)}>
-        Применить
-      </button>
     </div>
-  );
-};
+  )
+}

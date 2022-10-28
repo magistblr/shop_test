@@ -1,40 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react'
 
-import { Tag } from './Tag';
+import { Tag } from './Tag'
 
-import './Tags.scss';
-import { useAppSelector, useAppDispatch } from 'hooks/redux';
-import { categoryAPI } from 'services/CategoryService';
-import { categorySlice } from 'store/reducers/CategorySlice';
-import { randomSortArray } from 'utils/randomSortArray';
-import { COLOR_BUTTON } from 'utils/constans';
-
+import './Tags.scss'
+import { useAppSelector, useAppDispatch } from 'hooks/redux'
+import { API } from 'services/apiService'
+import { categorySlice } from 'store/reducers/CategorySlice'
+import { COLOR_BUTTON } from 'utils/constans'
+import { randomSortArray } from 'utils/randomSortArray'
 
 export const Tags: React.FC = () => {
-  const categories = useAppSelector(state => state.categoryReducer.categories);
-  const dispatch = useAppDispatch();
-  const { data: categor } = categoryAPI.useFetchSortRangeCategoriesQuery({
-    sort: '"name"',
-    min: 0,
-    max: 2,
-  });
-  console.log(categories);
+  const categories = useAppSelector(state => state.categoryReducer.categories)
+  const minRange = useAppSelector(state => state.categoryReducer.minRange)
+  const maxRange = useAppSelector(state => state.categoryReducer.maxRange)
+  const sort = useAppSelector(state => state.categoryReducer.sort)
+
+  const dispatch = useAppDispatch()
+
+  const { data: category } = API.useFetchSortRangeCategoriesQuery({
+    sort: sort ? '"name"' : '',
+    min: minRange,
+    max: maxRange,
+  })
+
   useEffect(() => {
-    if(categor){dispatch(categorySlice.actions.categoriesFetchingSuccess(categor));}
-  }, [categor]);
+    if (category) {
+      dispatch(categorySlice.actions.categoriesFetchingSuccess(category))
+    }
+  }, [category])
+
+  const changeId = useCallback((id: number) => {
+    dispatch(categorySlice.actions.categoriesId(id))
+  }, [])
 
   return (
-    <div className="wrapper_tags">
+    <ul className="wrapper_tags">
       {categories &&
-        categories.map(category => (
-          <Tag key={category.id}>
-            {category.name}
-          </Tag>
+        categories.map((category) => (
+          <li key={category.id}>
+            <Tag
+              id={category.id}
+              callback={changeId}
+              type={randomSortArray(COLOR_BUTTON)}
+            >
+              {category.name}
+            </Tag>
+          </li>
         ))}
-    </div>
-  );
-};
-function categoriesFetchingSuccess(categoriesFetchingSuccess: any) {
-  throw new Error('Function not implemented.');
+    </ul>
+  )
 }
-

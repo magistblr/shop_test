@@ -43,7 +43,6 @@ export const Footer: React.FC = () => (
       </div>
     </div>
     <div className={s.footer_bottom}>
-      <p className={s.footer_bottom_text}>© Sionic</p>
       <p className={s.footer_bottom_text}>Правовая информация</p>
       <p className={s.footer_bottom_text}>Политика конфиденциальности</p>
     </div>

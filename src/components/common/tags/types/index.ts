@@ -1,3 +1,7 @@
 export type TagType = {
-  type: 'green' | 'blue' | 'yellow' | 'pink' | 'outlined';
+  children: React.ReactNode;
+  id: number
+  type: string
+  callback: (id: number) => void
+  idCategory?: number
 };

@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 290px;
+  min-height: 250px;
+  padding: 10px;
+  background: white;
+  border-radius: 20px;
+  margin: 10px;
+}
+
+.variations_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.variations_name,
+.variations_value {
+  margin-bottom: 5px;
+  min-height: 20px;
+  padding: 5px
+}
+
+.variations_value {
+  font-weight: 600;
+}
+
+.price_wrapper {
+  display: flex;
+}

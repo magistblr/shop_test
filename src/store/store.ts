@@ -1,22 +1,54 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { API } from '../services/apiService'
 
-import { categoryAPI } from '../services/CategoryService';
-
-import categoryReducer from './reducers/CategorySlice';
+import appReducer from './reducers/AppSlice'
+import categoryReducer from './reducers/CategorySlice'
+import productReducer from './reducers/ProductSlice'
+import cartReducer from './reducers/CartSlice'
 
 export const rootReducer = combineReducers({
   categoryReducer,
-  [categoryAPI.reducerPath]: categoryAPI.reducer,
-});
+  productReducer,
+  appReducer,
+  cartReducer,
+  [API.reducerPath]: API.reducer,
+})
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: [API.reducerPath],
+  whitelist: ['cartReducer']
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const setupStore = () =>
   configureStore({
-    reducer: rootReducer,
-    middleware: getDefaultMiddleware =>
-      getDefaultMiddleware().concat(categoryAPI.middleware),
-  });
+    reducer: persistedReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(API.middleware),
+  })
 
-export type RootState = ReturnType<typeof rootReducer>;
-export type AppStore = ReturnType<typeof setupStore>;
-export type AppDispatch = AppStore['dispatch'];
+export const store = setupStore()
+
+export const persistor = persistStore(store)
+
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']
