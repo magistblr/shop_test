@@ -29,9 +29,7 @@ export const Delivery: React.FC = () => {
   const cartTotalPriceDiscount = useAppSelector(getCartTotalPriceDiscount)
   const dispatch = useAppDispatch()
 
-
   const [formData, setFormValue] = useState<IFormInputs>()
-
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<IFormInputs>();
   const methods = useForm<IFormInputs>();
@@ -53,20 +51,19 @@ export const Delivery: React.FC = () => {
   const countCartState = useAppSelector(getProductsCount)
 
   //TODO (баг постоянного рендера изза useEffect)
-  useEffect(() => {
-    setOrder(
-      order = {
-        phone: formData?.phone,
-        address: formData?.address,
-        nameUser: formData?.name,
-        date: new Date().toDateString(),
-        numberOrders: countCartState,
-        totalprice: totalPriceDiscount,
-        id: v1()
-      }
-    )
-  }), [countCartState];
-
+  // useEffect(() => {
+  //   setOrder(
+  //     order = {
+  //       phone: formData?.phone,
+  //       address: formData?.address,
+  //       nameUser: formData?.name,
+  //       date: new Date().toDateString(),
+  //       numberOrders: countCartState,
+  //       totalprice: totalPriceDiscount,
+  //       id: v1()
+  //     }
+  //   )
+  // }), [countCartState];
 
   // const { order } = useGetOrders()
   console.log(order);
